@@ -1,0 +1,25 @@
+firmwares:
+
+----------------------------------------------------------------------------
+
+apenas_debug_uart_16f1503.hex
+
+usado apenas para o teste da comunicacao serial, sem nenhuma outra
+implementacao
+
+----------------------------------------------------------------------------
+
+--- 18/12/2011 -------------------------------------------------------------
+
+isolado_V2A.hex
+
+primeira versao, com comunicacao uart e leitura das entradas analogicas
+e implementacao do modo debug
+
+
+isolado_V2A_SemDebug.hex
+
+primeira versao, com comunicacao uart e leitura das entradas analogicas
+FUNCOES DE DEBUG NAO IMPLEMENTADAS
+
+----------------------------------------------------------------------------

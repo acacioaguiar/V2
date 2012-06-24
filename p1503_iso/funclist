@@ -1,0 +1,19 @@
+_debug_print: CODE, 1760 0 26
+_uart_tx: CODE, 1705 0 55
+_sys_init: CODE, 1867 0 10
+_putch: CODE, 1877 0 7
+_protocolo_uart: CODE, 1115 0 145
+_debug_led: CODE, 1359 0 83
+_protocolo_tarefas: CODE, 758 0 206
+_main: CODE, 1260 0 99
+_uart_rx: CODE, 1644 0 61
+_uart_init: CODE, 1852 0 15
+_adc_ler: CODE, 1786 0 26
+_adc_tarefa: CODE, 964 0 151
+_debug_uart: CODE, 1513 0 68
+___lwdiv: CODE, 1442 0 71
+_isr: CODE, 4 0 41
+_printf: CODE, 532 0 226
+___lwmod: CODE, 1581 0 63
+_adc_init: CODE, 1812 0 21
+Total: 1374

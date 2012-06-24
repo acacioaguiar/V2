@@ -1,0 +1,13 @@
+Estou usando o mplabx 7.12, logo a definicao do pic16f1503 nao existe,
+para contorna esse problema estou fazendo o seguinte:
+- mudei algumas definicoes dos arquivos de include, eles agora tem "_mod"
+em seus nomes, para diferencialos dos originais.
+- como trabalho ao mesmo tempo com o pic16f616 para debug do projeto no
+proteus, tenho duas definicoes de compilacao no mplabx
+
+Na pasta versoes existe alguns hex ja prontos para funcionar com as 
+devidas funcoes implementadas.
+
+10/12/2011 - 23:47
+
+--------------------------------------------------------------------------------------
