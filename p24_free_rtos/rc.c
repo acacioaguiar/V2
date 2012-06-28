@@ -7,6 +7,13 @@
 #include "mini_ini/minIni.h"
 #include "rc.h"
 #include "conex.h"
+#include "debug_conf.h"
+
+#if _DEBUG_RC
+    #define _debug_printf(...)  printf(__VA_ARGS__)
+#else
+    #define _debug_printf(...)
+#endif
 
 #define sizearray(a)  (sizeof(a) / sizeof((a)[0]))
 
@@ -19,7 +26,9 @@ const char par_senha[] = "senha"; /* string */
 const char par_erro[] = ":erro:";
 
 void rc_test(void){
-    printf("\r\nerro: isso nao existe mais");
+
+    _debug_printf("\r\nerro: isso nao existe mais");
+
 }
 
 void rc_rede(void){
@@ -29,7 +38,7 @@ void rc_rede(void){
     char s[16];
     int i, j;
 
-    printf("\r\nbuscando configuracao");
+    _debug_printf("\r\nbuscando configuracao");
     
     FSchdir(SIS_DIR);
 
@@ -39,8 +48,8 @@ void rc_rede(void){
 
         if(i > 3) return;
 
-        printf("\r\nsecao-> %s", secao);
-        
+        _debug_printf("\r\nsecao-> %s", secao);
+
         if(ini_getbool(secao, par_rede, 0, fn) == 1){
             
             ini_gets(secao, par_ssid, par_erro,
@@ -48,7 +57,7 @@ void rc_rede(void){
                      sizeof(lista_rede.r[j].ssid),
                      fn);
 
-            printf("\r\n  ssid : %s", lista_rede.r[j].ssid);
+            _debug_printf("\r\n  ssid : %s", lista_rede.r[j].ssid);
 
             ini_gets(secao,
                      par_senha,
@@ -57,7 +66,7 @@ void rc_rede(void){
                      sizeof(lista_rede.r[j].senh),
                      fn);
 
-            printf("\r\n  senha: %s", lista_rede.r[j].senh);
+            _debug_printf("\r\n  senha: %s", lista_rede.r[j].senh);
 
             ini_gets(secao,
                      par_tipo,
@@ -67,10 +76,14 @@ void rc_rede(void){
                      fn);
 
             if(strcmppgm2ram(s, "wep") == 0){
-                printf("\r\n  tipo : wep");
+
+                _debug_printf("\r\n  tipo : wep");
+
                 lista_rede.r[j].tipo = 1;
             } else {
-                printf("\r\n  tipo : wap");
+
+                _debug_printf("\r\n  tipo : wap");
+
                 lista_rede.r[j].tipo = 2;
             }
 

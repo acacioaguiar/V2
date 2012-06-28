@@ -13,13 +13,14 @@
 /*----------------------------------------------------------------------------*/
 
 void usb_tty_init(void);
+void cria_queue(void);
 void usb_tty_task(void *pvParameters);
 void usb_tty_char(signed char le);
 void usb_tty_print(char *s);
 unsigned char usb_tty_est_rx(void);
 char usb_tty_read_byte(void);
 unsigned int usb_tty_loop(void);
-void usb_tty_status(void);
+void usb_status(void);
 
 
 #define USB_BUFFER_SIZE 32

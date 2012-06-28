@@ -17,8 +17,8 @@
 #define WF_WEP          2   // rede padrao de seguranca wep
 #define WF_WAP          3   // rede padrao de seguranca wap
 
-void conex_atualiza_redes(void);
-void conex_sincroniza_profile(unsigned char p);
+void con_atualiza_redes(void);
+void con_sincroniza_profile(unsigned char p);
 
 void con_conectando(void);
 void con_conectado(void);

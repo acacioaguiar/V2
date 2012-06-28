@@ -58,6 +58,8 @@
 #include "Compiler.h"
 #define GENERATED_BY_TCPIPCONFIG "Version 1.0.3383.23374"
 
+#include "debug_conf.h"
+
 // =======================================================================
 //   Application Options
 // =======================================================================
@@ -68,7 +70,12 @@
  */
  
 //#define USE_UART_SHOW
-#define STACK_USE_UART			    // Application demo using UART for IP address display and stack configuration
+
+#ifdef CONSOLE_VIA_USB
+    #define STACK_USE_UART
+#endif
+
+//#define STACK_USE_UART			    // Application demo using UART for IP address display and stack configuration
 //#define STACK_USE_UART2TCP_BRIDGE		// UART to TCP Bridge application example
 #define STACK_USE_IP_GLEANING
 //#define STACK_USE_ANNOUNCE				// Microchip Embedded Ethernet Device Discoverer server/client

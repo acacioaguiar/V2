@@ -1,20 +1,12 @@
 #define THIS_IS_STACK_APPLICATION
 
 #include <stdio.h>
-
 #include "HardwareProfile.h"
-
 #include "FreeRTOS.h"
-#include "task.h"
-#include "queue.h"
 #include "croutine.h"
-
 #include "board.h"
-
 #include "fardo.h"
-
 #include "TCPIP Stack/TCPIP.h"
-#include "TCPIP Stack/WFConsole.h"
 
 APP_CONFIG AppConfig;
 

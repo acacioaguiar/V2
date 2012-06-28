@@ -171,5 +171,5 @@ void wifi_conexao_padrao(void){
                      AppConfig.SecurityKeyLength);
     WF_CMConnect(ConnectionProfileID);
 
-    conex_sincroniza_profile((unsigned char)ConnectionProfileID);
+    con_sincroniza_profile((unsigned char)ConnectionProfileID);
 }

@@ -17,7 +17,7 @@
 
 
 static int nova_conexao(void);
-static void con_info_rede(int i);
+static void info_rede(int i);
 
 struct conex_lista_rede lista_rede;
 unsigned int controle_wifi = 0;
@@ -76,7 +76,7 @@ static int nova_conexao(void){
     if(lista_rede.qua == 0) return 0;
 
     printf("\r\nusando a rede cadastrada:");
-    con_info_rede(rede_atual);
+    info_rede(rede_atual);
 
     con_conectando();
 
@@ -104,14 +104,14 @@ static int nova_conexao(void){
     
 }
 
-static void con_info_rede(int i){
+static void info_rede(int i){
     printf("\r\n-tipo  : %u", lista_rede.r[i].tipo);
     printf("\r\n-ssid  : %s", lista_rede.r[i].ssid);
     printf("\r\n-senha : %s", lista_rede.r[i].senh);
 }
 
 
-void conex_atualiza_redes(void){
+void con_atualiza_redes(void){
     lista_rede.qua = 0;
     controle_wifi = 0;
     
@@ -119,7 +119,7 @@ void conex_atualiza_redes(void){
         rc_rede();   
 }
 
-void conex_sincroniza_profile(unsigned char p){
+void con_sincroniza_profile(unsigned char p){
     rede_atual = 0;
     lista_rede.prof = p;
 }

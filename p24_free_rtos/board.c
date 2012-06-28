@@ -82,11 +82,11 @@ void board_mem_ini(void) {
 
     MemInterfaceAttached = TRUE;
     
-    while(FileSysInitLock == FALSE && i++ < 16){
+    while(FileSysInitLock == FALSE && i++ < 64){
         portENTER_CRITICAL();
         FileSysInitLock = FileSystemInit();
         portEXIT_CRITICAL();
-        vTaskDelay(10/portTICK_RATE_MS);
+        vTaskDelay(20/portTICK_RATE_MS);
     }
     
     if(FileSysInitLock == TRUE){

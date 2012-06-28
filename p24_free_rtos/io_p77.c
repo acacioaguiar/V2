@@ -9,8 +9,6 @@
  * Felipe Bandeira, felipeband18@gmail.com
  */
 
-
-#include "uart_com.h"
 #include "comandos.h"
 #include "io_p77.h"
 
@@ -63,13 +61,13 @@ unsigned char io_p77_loop(void){
     static unsigned char posicao = 0;
 
     if(posicao == 0){
-        uart_p77_cmd_arg(CMD_RELE_BLOCO_1, io_p77.bloco1);
-        uart_p77_envia_pacote();
+//        uart_p77_cmd_arg(CMD_RELE_BLOCO_1, io_p77.bloco1);
+//        uart_p77_envia_pacote();
         posicao++;
         return 0;
     } else {
-        uart_p77_cmd_arg(CMD_RELE_BLOCO_2, io_p77.bloco2);
-        uart_p77_envia_pacote();
+//        uart_p77_cmd_arg(CMD_RELE_BLOCO_2, io_p77.bloco2);
+//        uart_p77_envia_pacote();
         posicao = 0;
         return 1;
     }

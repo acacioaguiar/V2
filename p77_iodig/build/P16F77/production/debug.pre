@@ -1,0 +1,119 @@
+
+# 1 "debug.c"
+
+# 12 "C:\Program Files (x86)\HI-TECH Software\PICC\9.83\include\stdio.h"
+typedef int ptrdiff_t;
+typedef unsigned size_t;
+typedef unsigned short wchar_t;
+
+# 31 "C:\Program Files (x86)\HI-TECH Software\PICC\9.83\include\stdarg.h"
+typedef void * va_list[1];
+
+#pragma inline(__va_start)
+extern void * __va_start(void);
+
+#pragma inline(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 27 "C:\Program Files (x86)\HI-TECH Software\PICC\9.83\include\stdio.h"
+extern int errno;
+
+# 58
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 17 "C:\Program Files (x86)\HI-TECH Software\PICC\9.83\include\conio.h"
+extern int errno;
+
+
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern bit kbhit(void);
+
+# 31
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 103 "C:\Program Files (x86)\HI-TECH Software\PICC\9.83\include\stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+# 195
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...);
+extern int sscanf(const char *, const char *, ...);
+extern int vprintf(const char *, va_list);
+extern int vsprintf(char *, const char *, va_list);
+extern int vscanf(const char *, va_list ap);
+extern int vsscanf(const char *, const char *, va_list);
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 25 "lcd.h"
+void lcd_write(unsigned char);
+void lcd_clear(void);
+void lcd_puts(const char * s);
+void lcd_goto(unsigned char pos);
+void lcd_init(void);
+void lcd_putch(char);
+void lcd_string(char *s, unsigned char pos);
+void lcd_modo(unsigned char modo);
+void lcd_string_len(char *s, unsigned char pos, unsigned char len);
+void lcd_novo_char(unsigned char local, const char *bloco);
+void lcd_cursor_ddram(unsigned char coluna, unsigned char linha);
+
+# 36 "debug.h"
+volatile struct{
+unsigned uart : 1;
+unsigned lcd : 1;
+unsigned main : 1;
+unsigned protocolo : 1;
+unsigned print : 1;
+unsigned rele : 1;
+char buf[17];
+}debug;
+
+# 95
+void debug_lcd(char *s, unsigned char pos, unsigned bug);
+void debug_lcd_len(char *s, unsigned char pos, unsigned char len, unsigned bug);
+void debug_init(void);
+void debug_limpa_lcd_todo(void);
+
+# 21 "debug.c"
+void debug_lcd(char *s, unsigned char pos, unsigned bug){
+if(bug){
+lcd_string((char *)"                ", pos);
+lcd_string(s, pos);
+}
+}
+
+# 32
+void debug_lcd_len(char *s, unsigned char pos, unsigned char len, unsigned bug){
+if(bug){
+lcd_string((char *)"                ", pos);
+lcd_string_len(s, pos, len);
+}
+}
+
+
+void debug_init(void){
+
+{(debug.uart = 0); (debug.lcd = 0); (debug.main = 0); (debug.protocolo = 0); (debug.rele = 0); };
+}
+

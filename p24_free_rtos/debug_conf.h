@@ -1,7 +1,6 @@
 #ifndef _CONFIG_PROJETO_H
 #define _CONFIG_PROJETO_H
 
-
 /*
  * Debug de basic e token
  * OBS: A um grande uso do buffer de saida
@@ -10,14 +9,13 @@
 //#define TOKEN_DEBUG   // tokenizer.c
 
 /*
- * Debug da uart_tarefas.c
+ * Habilita o debug da microchip, utilizando usb no modo cdc
  */
-//#define UART_DEBUG    // habilita o debug da uart via printf
-#define UART_DEBUG_2
+#define CONSOLE_VIA_USB
 
-/*
- * Debug do wifi.c
- */
-#define WIFI_DEBUG
+//#define _DEBUG_RC
+
+/* ua_com.h */
+//#define _DEBUG_UA
 
 #endif

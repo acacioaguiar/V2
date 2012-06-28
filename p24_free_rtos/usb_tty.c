@@ -15,50 +15,61 @@
 
 #include "TCPIP Stack/TCPIP.h"
 
+#include "fardo.h"
+
+static void barramento_usb(void);
+
 static char buffer_entrada[2];
 static unsigned int buffer_entrada_cont = 0;
 
 xQueueHandle usb_buffer_queue;
 
-extern unsigned int sinal_inicializado;
+extern int sinal_inicializado;
 extern unsigned portBASE_TYPE stack_uso_usb;
 
 void usb_tty_init(void){
+    USBDeviceInit();
+}
+
+void cria_queue(void){
+    static unsigned int tempo_criacao;
     /* queue para o envio de string pela usb
      * usada principalmente por:
      * - printf
      * - usb_tty_print
-     */
-    usb_buffer_queue = xQueueCreate(8, sizeof(USB_BUFFER));
-
-    USBDeviceInit();
+     */    
+    if(USBDeviceState == CONFIGURED_STATE){
+        if(tempo_criacao++ == 100)
+            usb_buffer_queue = xQueueCreate(8, sizeof(USB_BUFFER));
+    } else {
+        tempo_criacao = 0;
+    }
 }
 
 void usb_tty_task(void *pvParameters){
-    unsigned long tempo = 0;
-
     stack_uso_usb = uxTaskGetStackHighWaterMark( NULL );
-
+    
     sinal_inicializado++;
 
     while(1){
 
-        if ((TickGet() - tempo) >= (TICK_SECOND / 64)) {
-            tempo = TickGet();
-            usb_tty_status();
+        vTaskDelay(1/portTICK_RATE_MS);
 
-        }
-
-        #if defined(USB_INTERRUPT)
-            if (USB_BUS_SENSE && (USBGetDeviceState() == DETACHED_STATE)){
-                USBDeviceAttach();
-            }
-        #endif
-
+        barramento_usb();
+        cria_queue();
+        usb_status();
         usb_tty_loop();
 
         stack_uso_usb = uxTaskGetStackHighWaterMark( NULL );
     }
+}
+
+static void barramento_usb(void){
+    #if defined(USB_INTERRUPT)
+        if (USB_BUS_SENSE && (USBGetDeviceState() == DETACHED_STATE)){
+            USBDeviceAttach();
+        }
+    #endif
 }
 
 void usb_tty_char(signed char le){
@@ -92,12 +103,12 @@ void usb_tty_print(char *s){
             buf.co = USB_BUFFER_SIZE;
             len-=USB_BUFFER_SIZE;
             for(i = 0; i < USB_BUFFER_SIZE; i++){ buf.out[i] = *s++; }
-            xQueueSendToBack(usb_buffer_queue, &buf, 20/portTICK_RATE_MS);
+            xQueueSendToBack(usb_buffer_queue, &buf, portMAX_DELAY);
         } else {
             if(len > 0){
                 buf.co = len;
                 for(i = 0; i < len; i++){ buf.out[i] = *s++; }
-                xQueueSendToBack(usb_buffer_queue, &buf, 20/portTICK_RATE_MS);
+                xQueueSendToBack(usb_buffer_queue, &buf, portMAX_DELAY);
             }
             break;
         }
@@ -123,11 +134,11 @@ char usb_tty_read_byte(void) {
     return buffer_entrada[0];
 }
 
-void usb_tty_status(void) {
+void usb_status(void) {
 
-    static WORD led_count = 0;
+    static unsigned int led_count = 0;
 
-    if (led_count == 0)led_count = 4U;
+    if (led_count == 0)led_count = 10;
     led_count--;
 
     // verifica UCONbits.SUSPND
@@ -183,8 +194,10 @@ unsigned int usb_tty_loop(void){
             buffer_entrada_cont = getsUSBUSART((char *)buffer_entrada, sizeof(buffer_entrada));
         }
 
-        if(xQueueReceive(usb_buffer_queue, &usb_task, ( portTickType ) 10)){
-            putUSBUSART((char *)usb_task.out, usb_task.co);
+        if(usb_buffer_queue != 0){
+            if(xQueueReceive(usb_buffer_queue, &usb_task, ( portTickType ) 10)){
+                putUSBUSART((char *)usb_task.out, usb_task.co);
+            }
         }
     }
 
@@ -219,7 +232,7 @@ int __atribute_libc write(int handle, void *buffer, unsigned int len){
                     for(i = 0; i < USB_BUFFER_SIZE; i++){ printf_buffer.out[i] = *(char *)buffer; }
                     len -= USB_BUFFER_SIZE;
                     printf_buffer.co = USB_BUFFER_SIZE;
-                    xQueueSendToBack(usb_buffer_queue, &printf_buffer, 20/portTICK_RATE_MS);
+                    xQueueSendToBack(usb_buffer_queue, &printf_buffer, portMAX_DELAY);
                 }
                 goto printf_parte2;
             } else {
@@ -227,7 +240,7 @@ printf_parte2:
                 if(len > 0){
                     for(i = 0; i < len; i++){ printf_buffer.out[i] = *(char *)buffer; }
                     printf_buffer.co = len;
-                    xQueueSendToBack(usb_buffer_queue, &printf_buffer, 20/portTICK_RATE_MS);
+                    xQueueSendToBack(usb_buffer_queue, &printf_buffer, portMAX_DELAY);
                 }
             }
 
