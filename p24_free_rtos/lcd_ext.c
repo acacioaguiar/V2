@@ -49,7 +49,7 @@ void lcd_ua_msg(char *s, int linha){
 
     for(i = 0; i < l; i++){
         bmsg[i] = *s++;         /* copia o argumento */
-        bcmd[i] = 'a' + linha;  /* formada o comando */
+        bcmd[i] = 'a' + linha;  /* copia e formada o comando */
     }
 
     /* finaliza a string */

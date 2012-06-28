@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 #include "lcd_ext.h"
 
 void tela_ini(void){

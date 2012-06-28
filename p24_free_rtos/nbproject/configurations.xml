@@ -144,6 +144,7 @@
       <itemPath>tcp_com.h</itemPath>
       <itemPath>util.h</itemPath>
       <itemPath>conex.h</itemPath>
+      <itemPath>v2.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -279,6 +280,7 @@
       <itemPath>util.c</itemPath>
       <itemPath>conex.c</itemPath>
       <itemPath>armadilhas.c</itemPath>
+      <itemPath>v2.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

@@ -1,9 +1,6 @@
 #include <stdio.h>
-
 #include "lcd_ext.h"
-
 #include "TCPIP Stack/TCPIP.h"
-
 #include "util.h"
 
 extern APP_CONFIG AppConfig;
