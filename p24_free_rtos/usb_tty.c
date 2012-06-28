@@ -13,7 +13,18 @@
 
 static void barramento_usb(void);
 static unsigned int usb_loop(void);
+static void usb_leds_status(void);
 
+#define led_estado_1()              (!LED1_IO)
+#define led_ligado_2()              {LED2_IO = 0;}
+#define led_desliga_2()             {LED2_IO = 1;}
+#define led_muda_estado_1()         {LED1_IO = ~LED1_IO;}
+#define led_todos_apagados()        {LED1_IO = 1; LED2_IO = 1;}
+#define led_todos_ligados()         {LED1_IO = 0; LED2_IO = 0;}
+#define led_apenas_1_ligado()       {LED1_IO = 0; LED2_IO = 1;}
+#define led_apenas_2_ligado()       {LED1_IO = 1; LED2_IO = 0;}
+
+/* buffer de entrada */
 static char buffer_entrada[2];
 static unsigned int buffer_entrada_cont = 0;
 
@@ -26,6 +37,12 @@ void usb_tty_init(void){
     USBDeviceInit();
 }
 
+/*
+ * A queue nao pode ser iniciada, caso o P24 nao esteja
+ * conectado na usb. Caso ela seja criada sem o barramento usb
+ * funcionando corretamente, ha possibilidade de travamento no codigo.
+ * Pois determinados algoritimos usam a usb para a comunicacao.
+ */
 void cria_queue(void){
     static unsigned int tempo_criacao;
     /* queue para o envio de string pela usb
@@ -34,27 +51,34 @@ void cria_queue(void){
      * - usb_tty_print
      */    
     if(USBDeviceState == CONFIGURED_STATE){
+        /* delay para criacao da queue */
         if(tempo_criacao++ == 100)
-            usb_buffer_queue = xQueueCreate(8, sizeof(USB_BUFFER));
+            usb_buffer_queue = xQueueCreate(USB_QUANTIDADE_QUEUE, sizeof(USB_BUFFER));
     } else {
+        /* ops! */
         tempo_criacao = 0;
     }
 }
 
 void usb_tty_task(void *pvParameters){
     stack_uso_usb = uxTaskGetStackHighWaterMark( NULL );
-    
+
+    /* usb foi iniciada e esta no loop principal */
     marca_inicializacao();
 
     while(1){
 
         vTaskDelay(1/portTICK_RATE_MS);
 
+        /* verifica o barramento */
         barramento_usb();
+        /* cria com seguranca a queue */
         cria_queue();
         usb_leds_status();
+        /* loop principal, comunicacao(transmissao e recepcao) */
         usb_loop();
 
+        /* marca maximo de consumo */
         stack_uso_usb = uxTaskGetStackHighWaterMark( NULL );
     }
 }
@@ -67,6 +91,7 @@ static void barramento_usb(void){
     #endif
 }
 
+/* envia apenas 1 byte */
 void usb_tx_1byte(signed char le){
     USB_BUFFER usb_buffer;
 
@@ -110,9 +135,7 @@ void usb_tty_print(char *s){
     }
 }
 
-/*
- * Verifica o estado do buffer de entrada
- */
+/* Verifica o estado do buffer de entrada */
 unsigned char usb_estado_rx(void) {
     if (buffer_entrada_cont == 0) {
         return 0;
@@ -121,52 +144,50 @@ unsigned char usb_estado_rx(void) {
     }
 }
 
-/*
- * Ler o primeiro byte do buffer de entrada
- */
+/* Ler o primeiro byte do buffer de entrada */
 char usb_buffer_rx(void) {
     buffer_entrada_cont = 0;
     return buffer_entrada[0];
 }
 
 void usb_leds_status(void) {
-
     static unsigned int led_count = 0;
 
-    if (led_count == 0)led_count = 6;
+    if (led_count == 0)
+        led_count = 6;
+    
     led_count--;
 
-    // verifica UCONbits.SUSPND
     if (USBSuspendControl == 1) {
         if (led_count == 0) {
-                mLED_1_Toggle();
-            if (mGetLED_1()) {
-                mLED_2_On();
+                led_muda_estado_1();
+            if (led_estado_1()) {
+                led_ligado_2();
             } else {
-                mLED_2_Off();
+                led_desliga_2();
             }
         }
     } else {
             if (USBDeviceState == DETACHED_STATE) {
-                mLED_Both_Off();
+                led_todos_apagados();
             } else if (USBDeviceState == ATTACHED_STATE) {
-                mLED_Both_On();
+                led_todos_ligados();
             } else if (USBDeviceState == POWERED_STATE) {
-                mLED_Only_1_On();
+                led_apenas_1_ligado();
             } else if (USBDeviceState == DEFAULT_STATE) {
-                mLED_Only_2_On();
+                led_apenas_2_ligado();
             } else if (USBDeviceState == ADDRESS_STATE) {
                 if (led_count == 0) {
-                    mLED_1_Toggle();
-                    mLED_2_Off();
+                    led_muda_estado_1();
+                    led_desliga_2();
                 }
             } else if (USBDeviceState == CONFIGURED_STATE) {
             if (led_count == 0) {
-                mLED_1_Toggle();
-                if (mGetLED_1()) {
-                    mLED_2_Off();
+                led_muda_estado_1();
+                if (led_estado_1()) {
+                    led_desliga_2();
                 } else {
-                    mLED_2_On();
+                    led_ligado_2();
                 }
             }
         }
@@ -176,7 +197,7 @@ void usb_leds_status(void) {
 unsigned int usb_loop(void){
     USB_BUFFER usb_task;
 
-    /* regiao critica */
+    /* regiao critica ? */
     portENTER_CRITICAL();
 
     if ((USBDeviceState < CONFIGURED_STATE) || (USBSuspendControl == 1)){

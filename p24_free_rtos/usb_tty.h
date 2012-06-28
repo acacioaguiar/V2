@@ -8,10 +8,6 @@
 #ifndef USB_TTY_H
 #define	USB_TTY_H
 
-/*----------------------------------------------------------------------------*/
-/* PROTOTIPOS                                                                 */
-/*----------------------------------------------------------------------------*/
-
 void usb_tty_init(void);
 void cria_queue(void);
 void usb_tty_task(void *pvParameters);
@@ -19,24 +15,17 @@ void usb_tx_1byte(signed char le);
 void usb_tty_print(char *s);
 unsigned char usb_estado_rx(void);
 char usb_buffer_rx(void);
-void usb_leds_status(void);
 
 
-#define USB_BUFFER_SIZE 32
+#define USB_QUANTIDADE_QUEUE    8
+#define USB_BUFFER_SIZE         32
 
 typedef struct{
     char out[USB_BUFFER_SIZE];
     int co;
 }USB_BUFFER;
 
-#define mGetLED_1()         (!LED1_IO)
-#define mLED_2_On()	    {LED2_IO = 0;}
-#define mLED_2_Off()	    {LED2_IO = 1;}
-#define mLED_1_Toggle()	    {LED1_IO = ~LED1_IO;}
-#define mLED_Both_Off()     {LED1_IO = 1; LED2_IO = 1;}
-#define mLED_Both_On()      {LED1_IO = 0; LED2_IO = 0;}
-#define mLED_Only_1_On()    {LED1_IO = 0; LED2_IO = 1;}
-#define mLED_Only_2_On()    {LED1_IO = 1; LED2_IO = 0;}
+
 
 
 /*
@@ -52,11 +41,10 @@ typedef struct{
 #define putcUART(a)         usb_tx_1byte(a)
 #define putrsUART(a)        usb_tty_print((char*)a)
 
-/*----------------------------------------------------------------------------*/
 
+/* compatibilidade com printf */
 #define __atribute_libc __attribute__((__section__(".libc")))
 int __atribute_libc write(int handle, void *buffer, unsigned int len);
 
 
 #endif	/* USB_TTY_H */
-
