@@ -334,7 +334,7 @@
         <property key="extra-include-directories"
                   value=".;.\free_rtos;.\free_rtos\include;.\free_rtos\portable\MemMang;.\free_rtos\portable\MPLAB\PIC24_dsPIC;.\microchip;.\microchip\Common;.\microchip\Include;.\microchip\Include\USB;.\microchip\USB;.\microchip\TCPIP Stack;.\microchip\TCPIP Stack\WiFi;.\microchip\MDD File System;.\microchip\Include\TCPIP Stack;.\microchip\Include\MDD File System;.\mini_ini"/>
         <property key="isolate-each-function" value="false"/>
-        <property key="optimization-level" value="0"/>
+        <property key="optimization-level" value="1"/>
         <property key="post-instruction-scheduling" value="no-schedule-insns2"/>
         <property key="pre-instruction-scheduling" value="no-schedule-insns"/>
         <property key="preprocessor-macros" value=""/>
