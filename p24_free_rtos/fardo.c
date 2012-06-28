@@ -1,35 +1,20 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
-#include "semphr.h"
-#include "croutine.h"
-
-#include "./USB/usb.h"
-#include "./USB/usb_function_cdc.h"
-#include "usb_config.h"
-#include "USB/usb_device.h"
-#include "USB/usb.h"
-#include "usb_tty.h"
-
 #include "TCPIP Stack/TCPIP.h"
 #include "TCPIP Stack/WFConsole.h"
-
-
 #include "io_p77.h"
 #include "lcd_ext.h"
 #include "p1503_com.h"
-
-#include "rc.h"
 #include "board.h"
 #include "wifi_init.h"
+#include "rc.h"
 #include "fardo.h"
 #include "conex.h"
-
 #include "ua_com.h"
 
 
 static void cria_usb(void);
-
 static void cria_tcpip(void);
 static void t_tcpip(void *pvParameters);
 
@@ -39,7 +24,6 @@ static void t_tcpip(void *pvParameters);
 #endif
 
 unsigned portBASE_TYPE stack_uso_tcpip;
-unsigned portBASE_TYPE stack_uso_usb;
 
 #define QUA_TAREFAS 4
 

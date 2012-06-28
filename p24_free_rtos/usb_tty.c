@@ -1,31 +1,26 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
-#include "semphr.h"
-#include "croutine.h"
-
 #include "./USB/usb.h"
 #include "./USB/usb_function_cdc.h"
 #include "usb_config.h"
 #include "USB/usb_device.h"
 #include "USB/usb.h"
 #include "HardwareProfile.h"
-
 #include "usb_tty.h"
-
 #include "TCPIP Stack/TCPIP.h"
-
 #include "fardo.h"
 
 static void barramento_usb(void);
+static unsigned int usb_loop(void);
 
 static char buffer_entrada[2];
 static unsigned int buffer_entrada_cont = 0;
 
+/* marca o uso da memoria */
+unsigned portBASE_TYPE stack_uso_usb;
+/* transmissao de dados para o barramento */
 xQueueHandle usb_buffer_queue;
-
-extern int sinal_inicializado;
-extern unsigned portBASE_TYPE stack_uso_usb;
 
 void usb_tty_init(void){
     USBDeviceInit();
@@ -49,7 +44,7 @@ void cria_queue(void){
 void usb_tty_task(void *pvParameters){
     stack_uso_usb = uxTaskGetStackHighWaterMark( NULL );
     
-    sinal_inicializado++;
+    marca_inicializacao();
 
     while(1){
 
@@ -57,8 +52,8 @@ void usb_tty_task(void *pvParameters){
 
         barramento_usb();
         cria_queue();
-        usb_status();
-        usb_tty_loop();
+        usb_leds_status();
+        usb_loop();
 
         stack_uso_usb = uxTaskGetStackHighWaterMark( NULL );
     }
@@ -72,16 +67,16 @@ static void barramento_usb(void){
     #endif
 }
 
-void usb_tty_char(signed char le){
+void usb_tx_1byte(signed char le){
     USB_BUFFER usb_buffer;
 
     /* verifica se o queue esta funcionando */
-    if(usb_buffer_queue != 0){
-        usb_buffer.out[0] = le;
-        usb_buffer.co = 1;
-        xQueueSendToBack(usb_buffer_queue, &usb_buffer, portMAX_DELAY);
-        usb_buffer.co = 0;
-    }
+    if(usb_buffer_queue == 0) return;
+    
+    usb_buffer.out[0] = le;
+    usb_buffer.co = 1;
+    xQueueSendToBack(usb_buffer_queue, &usb_buffer, portMAX_DELAY);
+    usb_buffer.co = 0;
 }
 
 /*
@@ -118,7 +113,7 @@ void usb_tty_print(char *s){
 /*
  * Verifica o estado do buffer de entrada
  */
-unsigned char usb_tty_est_rx(void) {
+unsigned char usb_estado_rx(void) {
     if (buffer_entrada_cont == 0) {
         return 0;
     } else {
@@ -129,16 +124,16 @@ unsigned char usb_tty_est_rx(void) {
 /*
  * Ler o primeiro byte do buffer de entrada
  */
-char usb_tty_read_byte(void) {
+char usb_buffer_rx(void) {
     buffer_entrada_cont = 0;
     return buffer_entrada[0];
 }
 
-void usb_status(void) {
+void usb_leds_status(void) {
 
     static unsigned int led_count = 0;
 
-    if (led_count == 0)led_count = 10;
+    if (led_count == 0)led_count = 6;
     led_count--;
 
     // verifica UCONbits.SUSPND
@@ -178,7 +173,7 @@ void usb_status(void) {
     }
 }
 
-unsigned int usb_tty_loop(void){
+unsigned int usb_loop(void){
     USB_BUFFER usb_task;
 
     /* regiao critica */

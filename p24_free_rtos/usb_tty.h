@@ -15,12 +15,11 @@
 void usb_tty_init(void);
 void cria_queue(void);
 void usb_tty_task(void *pvParameters);
-void usb_tty_char(signed char le);
+void usb_tx_1byte(signed char le);
 void usb_tty_print(char *s);
-unsigned char usb_tty_est_rx(void);
-char usb_tty_read_byte(void);
-unsigned int usb_tty_loop(void);
-void usb_status(void);
+unsigned char usb_estado_rx(void);
+char usb_buffer_rx(void);
+void usb_leds_status(void);
 
 
 #define USB_BUFFER_SIZE 32
@@ -44,13 +43,13 @@ typedef struct{
  * Compatibilidade com a comunicacao serial UART de toda a pilha tcp/ip
  */
 #define BusyUART()          0
-#define DataRdyUART()       usb_tty_est_rx()
-#define ReadUART()          usb_tty_read_byte()
-#define WriteUART(a)        usb_tty_char(a)
-#define getsUART(a,b,c)     getsUART2(a,b,c)
+#define DataRdyUART()       usb_estado_rx()
+#define ReadUART()          usb_buffer_rx()
+#define WriteUART(a)        usb_tx_1byte(a)
+//#define getsUART(a,b,c)     getsUART2(a,b,c)
 #define putsUART(a)         usb_tty_print((char*)a)
-#define getcUART()          getcUART2()
-#define putcUART(a)         usb_tty_char(a)
+//#define getcUART()          getcUART2()
+#define putcUART(a)         usb_tx_1byte(a)
 #define putrsUART(a)        usb_tty_print((char*)a)
 
 /*----------------------------------------------------------------------------*/
