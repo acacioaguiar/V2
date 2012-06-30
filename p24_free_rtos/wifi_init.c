@@ -1,12 +1,6 @@
 #include "TCPIP Stack/TCPIP.h"
 #include "conex.h"
 
-
-
-
-
-
-
 #define IP_END_24B ( MY_DEFAULT_IP_ADDR_BYTE1 | MY_DEFAULT_IP_ADDR_BYTE2 << 8ul | \
                      MY_DEFAULT_IP_ADDR_BYTE3 << 16ul | MY_DEFAULT_IP_ADDR_BYTE4 << 24ul )
 
