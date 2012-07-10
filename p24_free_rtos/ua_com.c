@@ -7,7 +7,7 @@
 #include "comandos.h"
 #include "ua_com.h"
 
-#include "fardo.h"
+//#include "fardo.h"
 
 #include "debug_conf.h"
 
@@ -93,8 +93,8 @@ void ua_loop(void *pvParameters){
 
     uart_queue = xQueueCreate(QUA_QUEUE_UA, sizeof(struct ua_struct_tx));
 
-    /* sinaliza para o fardo.c que ua_loop foi iniciada e se encontra no loop */
-    marca_inicializacao();
+//    /* sinaliza para o fardo.c que ua_loop foi iniciada e se encontra no loop */
+//    marca_inicializacao();
     
     while(1){
         /* trata os erros de overflow e frame */

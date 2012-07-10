@@ -8,8 +8,6 @@
 #ifndef TCP_COM_H
 #define	TCP_COM_H
 
-
-
+void tcp_init(void);
 
 #endif	/* TCP_COM_H */
-

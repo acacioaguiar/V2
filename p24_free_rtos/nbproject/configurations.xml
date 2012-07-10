@@ -148,7 +148,6 @@
         <itemPath>tempo.h</itemPath>
         <itemPath>debug_conf.h</itemPath>
         <itemPath>conex.h</itemPath>
-        <itemPath>fardo.h</itemPath>
         <itemPath>rc.h</itemPath>
         <itemPath>sconsole.h</itemPath>
         <itemPath>tcp_com.h</itemPath>
@@ -294,7 +293,6 @@
         <itemPath>sconsole.c</itemPath>
         <itemPath>tcp_com.c</itemPath>
         <itemPath>conex.c</itemPath>
-        <itemPath>fardo.c</itemPath>
         <itemPath>tempo.c</itemPath>
         <itemPath>main.c</itemPath>
         <itemPath>armadilhas.c</itemPath>

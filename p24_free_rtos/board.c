@@ -73,7 +73,6 @@ void board_init(void){
 
 }
 
-
 /*
  * Inicializa o cartao sd e o sistema de arquivos.
  */
@@ -83,16 +82,12 @@ void board_mem_ini(void) {
     MemInterfaceAttached = TRUE;
     
     while(FileSysInitLock == FALSE && i++ < 64){
-        portENTER_CRITICAL();
         FileSysInitLock = FileSystemInit();
-        portEXIT_CRITICAL();
-        vTaskDelay(20/portTICK_RATE_MS);
+        DelayMs(10);
     }
     
-    if(FileSysInitLock == TRUE){
+    if(FileSysInitLock == TRUE)
         LED3_IO = 0;
-    } else {
+    else
         LED3_IO = 1;
-    }
-
 }

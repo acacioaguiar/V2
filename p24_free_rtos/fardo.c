@@ -42,15 +42,15 @@ void marca_inicializacao(void){
 }
 
 void fardo_inicia(void) {
-    usb_init();
+    //usb_init();
     cria_tcpip();
-    ua_com_init();
+    //ua_com_init();
 
     vTaskStartScheduler();
 }
 
 static void cria_tcpip(void) {
-    xTaskCreate(t_tcpip, (signed char *) "TCPIP", STACK_MIN_SIZE_TCPIP, NULL, FARDO_TCPIP_PRIORIDADE, &h_tcpip);
+    //xTaskCreate(t_tcpip, (signed char *) "TCPIP", STACK_MIN_SIZE_TCPIP, NULL, FARDO_TCPIP_PRIORIDADE, &h_tcpip);
 
 #if defined(WF_CONSOLE)
     xTaskCreate(t_tcpip_console, (signed char *) "CONS", STACK_MIN_SIZE_CONSOLE, NULL, FARDO_CONSOLE_PRIORIDADE, &h_conso);

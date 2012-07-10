@@ -16,7 +16,7 @@
 #define STACK_MIN_SIZE_TCPIP            (configMINIMAL_STACK_SIZE * 4)
 #define STACK_MIN_SIZE_CONSOLE          (configMINIMAL_STACK_SIZE * 5)
 #define FARDO_TCPIP_PRIORIDADE          (tskIDLE_PRIORITY + (unsigned portCHAR)4)
-#define FARDO_CONSOLE_PRIORIDADE        (tskIDLE_PRIORITY + (unsigned portCHAR)1)
+#define FARDO_CONSOLE_PRIORIDADE        (tskIDLE_PRIORITY + (unsigned portCHAR)0)
 
 #define STACK_MIN_SIZE_P77              (configMINIMAL_STACK_SIZE * 2)
 #define FARDO_P77_PRIORIDADE            (tskIDLE_PRIORITY + (unsigned portCHAR)3)

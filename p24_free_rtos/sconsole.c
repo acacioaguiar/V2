@@ -149,8 +149,8 @@ static void s_stack(int argc, char **argv) {
     usb_print("\r\nuso do stack");
     usb_print((char *) msg_linha);
     usb_print((char *) "\r\ntask  | livre | alocado |");
-    printf("\r\ntcpip | %03u   |  %03u    |", stack_uso_tcpip, 0);
-    printf("\r\nconso | %03u   |  %03u    |", stack_uso_tcpip_console, 0);
+//    printf("\r\ntcpip | %03u   |  %03u    |", stack_uso_tcpip, 0);
+//    printf("\r\nconso | %03u   |  %03u    |", stack_uso_tcpip_console, 0);
     printf("\r\nusb   | %03u   |  %03u    |", stack_uso_usb, 0);
     printf("\r\nuacom | %03u   |  %03u    |", stack_uso_ua_com, 0);
 
@@ -192,7 +192,7 @@ static void s_prio(int argc, char **argv) {
         if (strcmppgm2ram(argv[2], "tcpip") == 0) {
 
             usb_print("tcpip");
-            vTaskPrioritySet(h_tcpip, atoi(argv[3]));
+            //vTaskPrioritySet(h_tcpip, atoi(argv[3]));
 
         } else if (strcmppgm2ram(argv[2], "usb") == 0) {
 
@@ -206,7 +206,7 @@ static void s_prio(int argc, char **argv) {
         } else if (strcmppgm2ram(argv[2], "conso") == 0) {
 
             usb_print("console");
-            vTaskPrioritySet(h_conso, atoi(argv[3]));
+            //vTaskPrioritySet(h_conso, atoi(argv[3]));
 
         }
     }
@@ -214,8 +214,8 @@ static void s_prio(int argc, char **argv) {
     printf("\r\nquantidade de tarefas: %u", uxTaskGetNumberOfTasks());
     printf("\r\nprioridades:");
     printf("\r\nusb  : %u", uxTaskPriorityGet(usb_controle));
-    printf("\r\ntcpip: %u", uxTaskPriorityGet(h_tcpip));
-    printf("\r\nconso: %u", uxTaskPriorityGet(h_conso));
+//    printf("\r\ntcpip: %u", uxTaskPriorityGet(h_tcpip));
+//    printf("\r\nconso: %u", uxTaskPriorityGet(h_conso));
     printf("\r\nuacom: %u", uxTaskPriorityGet(ua_tarefa));
 }
 
