@@ -23,6 +23,7 @@
 #include "rc.h"
 #include "conex.h"
 #include "ua_com.h"
+#include "dump_heap_info.h"
 
 #define verifica_argumentos(argc, q)   if(argc != q){msg_erro_arg(); return;}
 
@@ -35,6 +36,8 @@ static void s_prio(int argc, char **argv);
 static void s_ua(int argc, char **argv);
 static void s_lmsg(int argc, char **argv);
 static void s_letreiro(int argc, char **argv);
+
+static void dumb_mem(int argc, char **argv);
 
 int bash_read_null(char *s, int max);
 int bash_read_null(char *s, int max);
@@ -77,6 +80,7 @@ static const BASH_CMD bash_cmd[] = {
     {"lmsg", s_lmsg},
     {"let", s_letreiro},
     {"edit", b_edit_file},
+    {"mem", dumb_mem},
     {NULL, NULL}
 };
 
@@ -234,6 +238,12 @@ static void s_lmsg(int argc, char **argv) {
 static void s_letreiro(int argc, char **argv) {
     verifica_argumentos(argc, 3);
     lcd_letreiro(atoi(argv[2]));
+}
+
+static void dumb_mem(int argc, char **argv){
+    (void)argc;
+    (void)argv;
+    _dump_heap_info();
 }
 
 /* leitura de uma string, ENTER para terminar ou limite do buffer */

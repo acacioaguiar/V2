@@ -14,7 +14,7 @@
 #define QUA_QUEUE_UA 4
 
 #define SIZE_STACK_UA_COM (configMINIMAL_STACK_SIZE * 3)
-#define PRIORIDADE_UA_COM (tskIDLE_PRIORITY + 3)
+#define PRIORIDADE_UA_COM (tskIDLE_PRIORITY + 0)
 
 void ua_loop(void *pvParameters);
 void ua_msg_2byte(char cmd, char arg);

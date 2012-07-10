@@ -140,7 +140,6 @@ void usb_print(char *s){
 void usb_print_len(char *s, int len_t){
     unsigned int i = 0;
     unsigned int len = len_t;
-    char *sb = (char *)s;
     USB_BUFFER buf;
 
     /* verifica se o queue esta funcionando */
