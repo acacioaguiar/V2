@@ -19,7 +19,7 @@ unsigned int usb_estado_rx(void);
 char usb_buffer_rx(void);
 
 
-#define USB_QUANTIDADE_QUEUE    4
+#define USB_QUANTIDADE_QUEUE    8
 #define USB_BUFFER_SIZE         32
 
 typedef struct{

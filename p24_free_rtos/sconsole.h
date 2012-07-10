@@ -8,7 +8,7 @@
 #ifndef SCONSOLE_H
 #define	SCONSOLE_H
 
-void sconsole_sis(void);
+void executa_cmd(int argc, char **argv);
 
 #endif	/* SCONSOLE_H */
 

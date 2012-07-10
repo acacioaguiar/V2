@@ -11,9 +11,9 @@
 #define BAUD_COM 19200
 
 /* numero maximo de queue disponibilizados pela ua */
-#define QUA_QUEUE_UA 2
+#define QUA_QUEUE_UA 4
 
-#define SIZE_STACK_UA_COM (configMINIMAL_STACK_SIZE * 2)
+#define SIZE_STACK_UA_COM (configMINIMAL_STACK_SIZE * 3)
 #define PRIORIDADE_UA_COM (tskIDLE_PRIORITY + 3)
 
 void ua_loop(void *pvParameters);

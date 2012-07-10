@@ -42,19 +42,6 @@
         <itemPath>mini_ini/minGlue-mdd.h</itemPath>
         <itemPath>mini_ini/minIni.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="f6" displayName="p77" projectFiles="true">
-        <logicalFolder name="f1" displayName="telas" projectFiles="true">
-          <itemPath>telas/wus.h</itemPath>
-          <itemPath>telas/ies.h</itemPath>
-          <itemPath>telas/tip.h</itemPath>
-          <itemPath>telas/ini.h</itemPath>
-        </logicalFolder>
-        <itemPath>io_p77.h</itemPath>
-        <itemPath>lcd_ext.h</itemPath>
-        <itemPath>comandos.h</itemPath>
-        <itemPath>p1503_com.h</itemPath>
-        <itemPath>ua_com.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="f4" displayName="tcpip" projectFiles="true">
         <logicalFolder name="f2" displayName="api" projectFiles="true">
           <itemPath>microchip/Include/TCPIP Stack/Announce.h</itemPath>
@@ -139,6 +126,19 @@
         <itemPath>usb_tty.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f8" displayName="v2" projectFiles="true">
+        <logicalFolder name="f2" displayName="p77" projectFiles="true">
+          <logicalFolder name="f1" displayName="telas" projectFiles="true">
+            <itemPath>telas/ies.h</itemPath>
+            <itemPath>telas/ini.h</itemPath>
+            <itemPath>telas/tip.h</itemPath>
+            <itemPath>telas/wus.h</itemPath>
+          </logicalFolder>
+          <itemPath>comandos.h</itemPath>
+          <itemPath>io_p77.h</itemPath>
+          <itemPath>lcd_ext.h</itemPath>
+          <itemPath>p1503_com.h</itemPath>
+          <itemPath>ua_com.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="web_page" projectFiles="true">
           <itemPath>HTTPPrint.h</itemPath>
         </logicalFolder>
@@ -181,18 +181,6 @@
       </logicalFolder>
       <logicalFolder name="f7" displayName="min_ini" projectFiles="true">
         <itemPath>mini_ini/minIni.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f3" displayName="p77" projectFiles="true">
-        <logicalFolder name="f1" displayName="telas" projectFiles="true">
-          <itemPath>telas/wus.c</itemPath>
-          <itemPath>telas/ies.c</itemPath>
-          <itemPath>telas/tip.c</itemPath>
-          <itemPath>telas/ini.c</itemPath>
-        </logicalFolder>
-        <itemPath>io_p77.c</itemPath>
-        <itemPath>lcd_ext.c</itemPath>
-        <itemPath>p1503_com.c</itemPath>
-        <itemPath>ua_com.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="tcpip" projectFiles="true">
         <logicalFolder name="f2" displayName="api" projectFiles="true">
@@ -283,6 +271,21 @@
         <itemPath>usb_tty.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f10" displayName="v2" projectFiles="true">
+        <logicalFolder name="f2" displayName="p77" projectFiles="true">
+          <logicalFolder name="f1" displayName="tela" projectFiles="true">
+            <itemPath>telas/ies.c</itemPath>
+            <itemPath>telas/ini.c</itemPath>
+            <itemPath>telas/tip.c</itemPath>
+            <itemPath>telas/wus.c</itemPath>
+          </logicalFolder>
+          <itemPath>io_p77.c</itemPath>
+          <itemPath>lcd_ext.c</itemPath>
+          <itemPath>p1503_com.c</itemPath>
+          <itemPath>ua_com.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f1" displayName="web_page" projectFiles="true">
+          <itemPath>CustomHTTPApp.c</itemPath>
+        </logicalFolder>
         <itemPath>util.c</itemPath>
         <itemPath>v2.c</itemPath>
         <itemPath>wifi_init.c</itemPath>
@@ -294,9 +297,6 @@
         <itemPath>tempo.c</itemPath>
         <itemPath>main.c</itemPath>
         <itemPath>armadilhas.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f8" displayName="web_page" projectFiles="true">
-        <itemPath>CustomHTTPApp.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -393,7 +393,7 @@
         <property key="general-code-protect" value="no_code_protect"/>
         <property key="general-write-protect" value="no_write_protect"/>
         <property key="generate-cross-reference-file" value="false"/>
-        <property key="heap-size" value="6200"/>
+        <property key="heap-size" value="8200"/>
         <property key="input-libraries" value=""/>
         <property key="linker-symbols" value=""/>
         <property key="map-file" value=""/>
@@ -567,7 +567,7 @@
         <property key="general-code-protect" value="no_code_protect"/>
         <property key="general-write-protect" value="no_write_protect"/>
         <property key="generate-cross-reference-file" value="false"/>
-        <property key="heap-size" value="6200"/>
+        <property key="heap-size" value="8200"/>
         <property key="input-libraries" value=""/>
         <property key="linker-symbols" value=""/>
         <property key="map-file" value=""/>

@@ -171,7 +171,7 @@ void process_cmd(void)
 #endif // WF_CONSOLE_IFCFGUTIL
 
         case SCONSOLE_SIS:
-            sconsole_sis();
+            executa_cmd((int)ARGC, (char **)ARGV);
             break;
 
         default:
