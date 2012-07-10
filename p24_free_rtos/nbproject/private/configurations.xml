@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="62">
   <projectmakefile>Makefile</projectmakefile>
-  <defaultConf>0</defaultConf>
+  <defaultConf>1</defaultConf>
   <confs>
-    <conf name="p24-c30" type="2">
+    <conf name="p24-c30-o1" type="2">
       <platformToolSN>:=MPLABCommUSB:=04D8:=900A:=0002:=Microchip Technology Inc.:=PICkit 3:=BUR112831012:=x:=en</platformToolSN>
       <languageToolchainDir>C:\Program Files (x86)\Microchip\MPLAB C30\bin</languageToolchainDir>
       <mdbdebugger version="1">
@@ -21,9 +21,9 @@
         </environment>
       </runprofile>
     </conf>
-    <conf name="p24-xc16" type="2">
-      <platformToolSN></platformToolSN>
-      <languageToolchainDir>C:\Program Files (x86)\Microchip\xc16\v1.00\bin</languageToolchainDir>
+    <conf name="p24-c30-o0" type="2">
+      <platformToolSN>:=MPLABCommUSB:=04D8:=900A:=0002:=Microchip Technology Inc.:=PICkit 3:=BUR112831012:=x:=en</platformToolSN>
+      <languageToolchainDir>C:\Program Files (x86)\Microchip\MPLAB C30\bin</languageToolchainDir>
       <mdbdebugger version="1">
         <placeholder1>place holder 1</placeholder1>
         <placeholder2>place holder 2</placeholder2>

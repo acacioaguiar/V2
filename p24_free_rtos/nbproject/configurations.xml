@@ -12,34 +12,33 @@
         <itemPath>microchip/Include/Compiler.h</itemPath>
         <itemPath>microchip/Include/GenericTypeDefs.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="f8" displayName="configuracoes" projectFiles="true">
-        <itemPath>FreeRTOSConfig.h</itemPath>
-        <itemPath>usb_config.h</itemPath>
-        <itemPath>TCPIPConfig.h</itemPath>
-        <itemPath>WF_Config.h</itemPath>
-        <itemPath>FSconfig.h</itemPath>
-        <itemPath>HardwareProfile.h</itemPath>
-        <itemPath>debug_conf.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="f1" displayName="free_rtos" projectFiles="true">
-        <itemPath>free_rtos/portable/MPLAB/PIC24_dsPIC/portmacro.h</itemPath>
-        <itemPath>free_rtos/include/croutine.h</itemPath>
-        <itemPath>free_rtos/include/FreeRTOS.h</itemPath>
-        <itemPath>free_rtos/include/list.h</itemPath>
-        <itemPath>free_rtos/include/mpu_wrappers.h</itemPath>
-        <itemPath>free_rtos/include/portable.h</itemPath>
-        <itemPath>free_rtos/include/projdefs.h</itemPath>
-        <itemPath>free_rtos/include/queue.h</itemPath>
-        <itemPath>free_rtos/include/semphr.h</itemPath>
-        <itemPath>free_rtos/include/StackMacros.h</itemPath>
-        <itemPath>free_rtos/include/task.h</itemPath>
-        <itemPath>free_rtos/include/timers.h</itemPath>
+        <logicalFolder name="f1" displayName="kernel" projectFiles="true">
+          <itemPath>free_rtos/include/list.h</itemPath>
+          <itemPath>free_rtos/include/mpu_wrappers.h</itemPath>
+          <itemPath>free_rtos/include/portable.h</itemPath>
+          <itemPath>free_rtos/portable/MPLAB/PIC24_dsPIC/portmacro.h</itemPath>
+          <itemPath>free_rtos/include/projdefs.h</itemPath>
+          <itemPath>free_rtos/include/queue.h</itemPath>
+          <itemPath>free_rtos/include/semphr.h</itemPath>
+          <itemPath>free_rtos/include/StackMacros.h</itemPath>
+          <itemPath>free_rtos/include/task.h</itemPath>
+          <itemPath>free_rtos/include/timers.h</itemPath>
+          <itemPath>free_rtos/include/croutine.h</itemPath>
+          <itemPath>free_rtos/include/FreeRTOS.h</itemPath>
+        </logicalFolder>
+        <itemPath>FreeRTOSConfig.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f11" displayName="hard" projectFiles="true">
+        <itemPath>board.h</itemPath>
+        <itemPath>HardwareProfile.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f5" displayName="mdd" projectFiles="true">
         <itemPath>microchip/Include/MDD File System/FSIO.h</itemPath>
         <itemPath>microchip/Include/MDD File System/SD-SPI.h</itemPath>
+        <itemPath>FSconfig.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="f9" displayName="mini_ini" projectFiles="true">
+      <logicalFolder name="f9" displayName="min_ini" projectFiles="true">
         <itemPath>mini_ini/minGlue-mdd.h</itemPath>
         <itemPath>mini_ini/minIni.h</itemPath>
       </logicalFolder>
@@ -57,6 +56,55 @@
         <itemPath>ua_com.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="tcpip" projectFiles="true">
+        <logicalFolder name="f2" displayName="api" projectFiles="true">
+          <itemPath>microchip/Include/TCPIP Stack/Announce.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/ARCFOUR.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/ARP.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/AutoIP.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/BerkeleyAPI.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/BigInt.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/Delay.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/DHCP.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/DNS.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/DynDNS.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/FileSystem.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/FTP.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/Hashes.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/Helpers.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/HTTP2.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/ICMP.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/IP.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/LCDBlocking.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/MAC.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/MPFS2.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/NBNS.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/Random.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/Reboot.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/regdef.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/RSA.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/SMTP.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/SNMP.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/SNMPv3.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/SNTP.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/SPIFlash.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/SPIRAM.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/SSL.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/StackTsk.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/TCP.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/TCPIP.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/TCPPerformanceTest.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/Telnet.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/TFTPc.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/Tick.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/UART.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/UART2TCPBridge.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/UDP.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/UDPPerformanceTest.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/XEEPROM.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/ZeroconfHelper.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/ZeroconfLinkLocal.h</itemPath>
+          <itemPath>microchip/Include/TCPIP Stack/ZeroconfMulticastDNS.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="wifi" projectFiles="true">
           <logicalFolder name="f1" displayName="console" projectFiles="true">
             <itemPath>microchip/Include/TCPIP Stack/WFConsoleIfconfig.h</itemPath>
@@ -73,78 +121,38 @@
           <itemPath>microchip/Include/TCPIP Stack/WFMgmtMsg.h</itemPath>
           <itemPath>microchip/Include/TCPIP Stack/WFRaw.h</itemPath>
         </logicalFolder>
-        <itemPath>microchip/Include/TCPIP Stack/Announce.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/ARCFOUR.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/ARP.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/AutoIP.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/BerkeleyAPI.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/BigInt.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/Delay.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/DHCP.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/DNS.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/DynDNS.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/FileSystem.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/FTP.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/Hashes.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/Helpers.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/HTTP2.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/ICMP.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/IP.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/LCDBlocking.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/MAC.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/MPFS2.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/NBNS.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/Random.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/Reboot.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/regdef.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/RSA.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/SMTP.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/SNMP.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/SNMPv3.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/SNTP.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/SPIFlash.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/SPIRAM.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/SSL.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/StackTsk.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/TCP.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/TCPIP.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/TCPPerformanceTest.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/Telnet.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/TFTPc.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/Tick.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/UART.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/UART2TCPBridge.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/UDP.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/UDPPerformanceTest.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/XEEPROM.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/ZeroconfHelper.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/ZeroconfLinkLocal.h</itemPath>
-        <itemPath>microchip/Include/TCPIP Stack/ZeroconfMulticastDNS.h</itemPath>
+        <itemPath>TCPIPConfig.h</itemPath>
+        <itemPath>WF_Config.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="usb" projectFiles="true">
-        <itemPath>microchip/Include/USB/usb.h</itemPath>
-        <itemPath>microchip/Include/USB/usb_ch9.h</itemPath>
-        <itemPath>microchip/Include/USB/usb_common.h</itemPath>
-        <itemPath>microchip/Include/USB/usb_device.h</itemPath>
-        <itemPath>microchip/Include/USB/usb_function_cdc.h</itemPath>
-        <itemPath>microchip/Include/USB/usb_hal.h</itemPath>
-        <itemPath>microchip/Include/USB/usb_hal_pic24.h</itemPath>
-        <itemPath>microchip/USB/usb_device_local.h</itemPath>
+        <logicalFolder name="f1" displayName="low_level" projectFiles="true">
+          <itemPath>microchip/Include/USB/usb.h</itemPath>
+          <itemPath>microchip/Include/USB/usb_ch9.h</itemPath>
+          <itemPath>microchip/Include/USB/usb_common.h</itemPath>
+          <itemPath>microchip/Include/USB/usb_device.h</itemPath>
+          <itemPath>microchip/USB/usb_device_local.h</itemPath>
+          <itemPath>microchip/Include/USB/usb_function_cdc.h</itemPath>
+          <itemPath>microchip/Include/USB/usb_hal.h</itemPath>
+          <itemPath>microchip/Include/USB/usb_hal_pic24.h</itemPath>
+        </logicalFolder>
+        <itemPath>usb_config.h</itemPath>
+        <itemPath>usb_tty.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="f10" displayName="web_page" projectFiles="true">
-        <itemPath>HTTPPrint.h</itemPath>
+      <logicalFolder name="f8" displayName="v2" projectFiles="true">
+        <logicalFolder name="f1" displayName="web_page" projectFiles="true">
+          <itemPath>HTTPPrint.h</itemPath>
+        </logicalFolder>
+        <itemPath>v2.h</itemPath>
+        <itemPath>util.h</itemPath>
+        <itemPath>wifi_init.h</itemPath>
+        <itemPath>tempo.h</itemPath>
+        <itemPath>debug_conf.h</itemPath>
+        <itemPath>conex.h</itemPath>
+        <itemPath>fardo.h</itemPath>
+        <itemPath>rc.h</itemPath>
+        <itemPath>sconsole.h</itemPath>
+        <itemPath>tcp_com.h</itemPath>
       </logicalFolder>
-      <itemPath>board.h</itemPath>
-      <itemPath>usb_tty.h</itemPath>
-      <itemPath>fardo.h</itemPath>
-      <itemPath>wifi_init.h</itemPath>
-      <itemPath>tempo.h</itemPath>
-      <itemPath>rc.h</itemPath>
-      <itemPath>sconsole.h</itemPath>
-      <itemPath>tcp_com.h</itemPath>
-      <itemPath>util.h</itemPath>
-      <itemPath>conex.h</itemPath>
-      <itemPath>v2.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -152,6 +160,7 @@
       <logicalFolder name="f6" displayName="basic" projectFiles="true">
         <itemPath>ubasic/tokenizer.c</itemPath>
         <itemPath>ubasic/ubasic.c</itemPath>
+        <itemPath>ubasic/use-ubasic.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="free_rtos" projectFiles="true">
         <itemPath>free_rtos/croutine.c</itemPath>
@@ -163,11 +172,14 @@
         <itemPath>free_rtos/portable/MPLAB/PIC24_dsPIC/portasm_PIC24.S</itemPath>
         <itemPath>free_rtos/portable/MemMang/heap_3.c</itemPath>
       </logicalFolder>
+      <logicalFolder name="f9" displayName="hard" projectFiles="true">
+        <itemPath>board.c</itemPath>
+      </logicalFolder>
       <logicalFolder name="f5" displayName="mdd" projectFiles="true">
         <itemPath>microchip/MDD File System/FSIO.c</itemPath>
         <itemPath>microchip/MDD File System/SD-SPI.c</itemPath>
       </logicalFolder>
-      <logicalFolder name="f7" displayName="mini_ini" projectFiles="true">
+      <logicalFolder name="f7" displayName="min_ini" projectFiles="true">
         <itemPath>mini_ini/minIni.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="p77" projectFiles="true">
@@ -183,6 +195,55 @@
         <itemPath>ua_com.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="tcpip" projectFiles="true">
+        <logicalFolder name="f2" displayName="api" projectFiles="true">
+          <itemPath>microchip/TCPIP Stack/ARCFOUR.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/ARP.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/AutoIP.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/BerkeleyAPI.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/BigInt.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/Delay.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/DHCP.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/DHCPs.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/DNS.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/DNSs.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/DynDNS.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/FileSystem.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/FTP.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/Hashes.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/Helpers.c</itemPath>
+          <itemPath>HTTP2_MDD.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/ICMP.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/IP.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/Announce.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/LCDBlocking.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/MPFS2.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/NBNS.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/Random.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/Reboot.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/RSA.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/SMTP.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/SNMP.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/SNMPv3.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/SNMPv3USM.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/SNTP.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/SPIEEPROM.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/SPIFlash.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/SPIRAM.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/SSL.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/StackTsk.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/TCP.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/TCPPerformanceTest.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/Telnet.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/TFTPc.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/Tick.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/UART.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/UART2TCPBridge.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/UDP.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/UDPPerformanceTest.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/ZeroconfHelper.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/ZeroconfLinkLocal.c</itemPath>
+          <itemPath>microchip/TCPIP Stack/ZeroconfMulticastDNS.c</itemPath>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="wifi" projectFiles="true">
           <logicalFolder name="f1" displayName="console" projectFiles="true">
             <itemPath>microchip/TCPIP Stack/WiFi/WFConsole.c</itemPath>
@@ -210,77 +271,33 @@
           <itemPath>microchip/TCPIP Stack/WiFi/WFScan.c</itemPath>
           <itemPath>microchip/TCPIP Stack/WiFi/WFTxPower.c</itemPath>
         </logicalFolder>
-        <itemPath>microchip/TCPIP Stack/Announce.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/ARCFOUR.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/ARP.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/AutoIP.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/BerkeleyAPI.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/BigInt.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/Delay.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/DHCP.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/DHCPs.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/DNS.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/DNSs.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/DynDNS.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/FileSystem.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/FTP.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/Hashes.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/Helpers.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/ICMP.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/IP.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/LCDBlocking.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/MPFS2.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/NBNS.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/Random.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/Reboot.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/RSA.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/SMTP.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/SNMP.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/SNMPv3.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/SNMPv3USM.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/SNTP.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/SPIEEPROM.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/SPIFlash.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/SPIRAM.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/SSL.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/StackTsk.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/TCP.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/TCPPerformanceTest.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/Telnet.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/TFTPc.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/Tick.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/UART.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/UART2TCPBridge.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/UDP.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/UDPPerformanceTest.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/ZeroconfHelper.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/ZeroconfLinkLocal.c</itemPath>
-        <itemPath>microchip/TCPIP Stack/ZeroconfMulticastDNS.c</itemPath>
-        <itemPath>HTTP2_MDD.c</itemPath>
+        <itemPath>WF_Config.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="usb" projectFiles="true">
-        <itemPath>microchip/USB/usb_device.c</itemPath>
-        <itemPath>microchip/USB/usb_hal_pic24.c</itemPath>
-        <itemPath>microchip/USB/CDC Device Driver/usb_function_cdc.c</itemPath>
-        <itemPath>usb_descriptors.c</itemPath>
+        <logicalFolder name="f1" displayName="low_level" projectFiles="true">
+          <itemPath>usb_descriptors.c</itemPath>
+          <itemPath>microchip/USB/usb_device.c</itemPath>
+          <itemPath>microchip/USB/CDC Device Driver/usb_function_cdc.c</itemPath>
+          <itemPath>microchip/USB/usb_hal_pic24.c</itemPath>
+        </logicalFolder>
+        <itemPath>usb_tty.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f10" displayName="v2" projectFiles="true">
+        <itemPath>util.c</itemPath>
+        <itemPath>v2.c</itemPath>
+        <itemPath>wifi_init.c</itemPath>
+        <itemPath>rc.c</itemPath>
+        <itemPath>sconsole.c</itemPath>
+        <itemPath>tcp_com.c</itemPath>
+        <itemPath>conex.c</itemPath>
+        <itemPath>fardo.c</itemPath>
+        <itemPath>tempo.c</itemPath>
+        <itemPath>main.c</itemPath>
+        <itemPath>armadilhas.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f8" displayName="web_page" projectFiles="true">
         <itemPath>CustomHTTPApp.c</itemPath>
       </logicalFolder>
-      <itemPath>main.c</itemPath>
-      <itemPath>board.c</itemPath>
-      <itemPath>usb_tty.c</itemPath>
-      <itemPath>fardo.c</itemPath>
-      <itemPath>WF_Config.c</itemPath>
-      <itemPath>wifi_init.c</itemPath>
-      <itemPath>tempo.c</itemPath>
-      <itemPath>rc.c</itemPath>
-      <itemPath>sconsole.c</itemPath>
-      <itemPath>tcp_com.c</itemPath>
-      <itemPath>util.c</itemPath>
-      <itemPath>conex.c</itemPath>
-      <itemPath>armadilhas.c</itemPath>
-      <itemPath>v2.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -290,7 +307,7 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="p24-c30" type="2">
+    <conf name="p24-c30-o1" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>PIC24FJ256GB106</targetDevice>
@@ -464,14 +481,14 @@
         <property key="voltagevalue" value="3.125"/>
       </PICkit3PlatformTool>
     </conf>
-    <conf name="p24-xc16" type="2">
+    <conf name="p24-c30-o0" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>PIC24FJ256GB106</targetDevice>
         <targetHeader></targetHeader>
         <platformTool>PICkit3PlatformTool</platformTool>
-        <languageToolchain>XC16</languageToolchain>
-        <languageToolchainVersion>1.00</languageToolchainVersion>
+        <languageToolchain>C30</languageToolchain>
+        <languageToolchainVersion>3_24</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -510,21 +527,7 @@
         <property key="extra-include-directories"
                   value=".;.\free_rtos;.\free_rtos\include;.\free_rtos\portable\MemMang;.\free_rtos\portable\MPLAB\PIC24_dsPIC;.\microchip;.\microchip\Common;.\microchip\Include;.\microchip\Include\USB;.\microchip\USB;.\microchip\TCPIP Stack;.\microchip\TCPIP Stack\WiFi;.\microchip\MDD File System;.\microchip\Include\TCPIP Stack;.\microchip\Include\MDD File System;.\mini_ini"/>
         <property key="isolate-each-function" value="false"/>
-        <property key="oXC16gcc-align-arr" value="false"/>
-        <property key="oXC16gcc-cnsts-mauxflash" value="false"/>
-        <property key="oXC16gcc-data-sects" value="false"/>
-        <property key="oXC16gcc-errata" value=""/>
-        <property key="oXC16gcc-fillupper" value=""/>
-        <property key="oXC16gcc-large-aggregate" value="false"/>
-        <property key="oXC16gcc-mauxflash" value="false"/>
-        <property key="oXC16gcc-mpa-lvl" value=""/>
-        <property key="oXC16gcc-name-text-sec" value=""/>
-        <property key="oXC16gcc-near-chars" value="false"/>
-        <property key="oXC16gcc-no-isr-warn" value="false"/>
-        <property key="oXC16gcc-sfr-warn" value="false"/>
-        <property key="oXC16gcc-smar-io-lvl" value="1"/>
-        <property key="oXC16gcc-smart-io-fmt" value=""/>
-        <property key="optimization-level" value="2"/>
+        <property key="optimization-level" value="0"/>
         <property key="post-instruction-scheduling" value="no-schedule-insns2"/>
         <property key="pre-instruction-scheduling" value="no-schedule-insns"/>
         <property key="preprocessor-macros" value=""/>
@@ -539,10 +542,10 @@
         <property key="false-conditionals" value="false"/>
         <property key="keep-locals" value="false"/>
         <property key="list-assembly" value="false"/>
+        <property key="list-file" value=""/>
         <property key="list-section-info" value="false"/>
         <property key="list-source" value="false"/>
         <property key="list-symbols" value="false"/>
-        <property key="oXC16asm-extra-opts" value=""/>
         <property key="omit-debug-dirs" value="false"/>
         <property key="omit-forms" value="false"/>
         <property key="preprocessor-macros" value=""/>
@@ -568,12 +571,6 @@
         <property key="input-libraries" value=""/>
         <property key="linker-symbols" value=""/>
         <property key="map-file" value=""/>
-        <property key="oXC16ld-extra-opts" value=""/>
-        <property key="oXC16ld-fill-upper" value="0"/>
-        <property key="oXC16ld-force-link" value="false"/>
-        <property key="oXC16ld-no-smart-io" value="false"/>
-        <property key="oXC16ld-nostdlib" value="false"/>
-        <property key="oXC16ld-stackguard" value="16"/>
         <property key="preprocessor-macros" value=""/>
         <property key="remove-unused-sections" value="false"/>
         <property key="report-memory-usage" value="false"/>
@@ -588,9 +585,7 @@
       </C30-LD>
       <C30Global>
         <property key="fast-math" value="false"/>
-        <property key="generic-16-bit" value="false"/>
         <property key="legacy-libc" value="false"/>
-        <property key="oXC16glb-macros" value=""/>
         <property key="output-file-format" value="elf"/>
       </C30Global>
       <PICkit3PlatformTool>
@@ -657,7 +652,7 @@
         <property key="programoptions.preserveuserid" value="false"/>
         <property key="programoptions.usehighvoltageonmclr" value="false"/>
         <property key="programoptions.uselvpprogramming" value="false"/>
-        <property key="voltagevalue" value="3.25"/>
+        <property key="voltagevalue" value="3.125"/>
       </PICkit3PlatformTool>
     </conf>
   </confs>

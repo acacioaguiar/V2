@@ -8,8 +8,6 @@
 #include "USB/usb.h"
 #include "HardwareProfile.h"
 #include "usb_tty.h"
-#include "TCPIP Stack/TCPIP.h"
-#include "fardo.h"
 
 static void barramento_usb(void);
 static unsigned int usb_loop(void);
@@ -25,16 +23,19 @@ static void usb_leds_status(void);
 #define led_apenas_2_ligado()       {LED1_IO = 1; LED2_IO = 0;}
 
 /* buffer de entrada */
-static char buffer_entrada[2];
-static unsigned int buffer_entrada_cont = 0;
+static char buffer_entrada[16];
+static unsigned int buf_ent_cont = 0;
 
 /* marca o uso da memoria */
 unsigned portBASE_TYPE stack_uso_usb;
 /* transmissao de dados para o barramento */
 xQueueHandle usb_buffer_queue;
+/* controle da tarefa */
+xTaskHandle usb_controle;
 
-void usb_tty_init(void){
+void usb_init(void){
     USBDeviceInit();
+    xTaskCreate(usb_tty_task, (signed char *) "USB", configMINIMAL_STACK_SIZE * 2, NULL, tskIDLE_PRIORITY+1, &usb_controle);
 }
 
 /*
@@ -49,7 +50,7 @@ void cria_queue(void){
      * usada principalmente por:
      * - printf
      * - usb_tty_print
-     */    
+     */
     if(USBDeviceState == CONFIGURED_STATE){
         /* delay para criacao da queue */
         if(tempo_criacao++ == 100)
@@ -63,12 +64,11 @@ void cria_queue(void){
 void usb_tty_task(void *pvParameters){
     stack_uso_usb = uxTaskGetStackHighWaterMark( NULL );
 
-    /* usb foi iniciada e esta no loop principal */
-    marca_inicializacao();
-
     while(1){
 
         vTaskDelay(1/portTICK_RATE_MS);
+
+        taskENTER_CRITICAL();
 
         /* verifica o barramento */
         barramento_usb();
@@ -77,6 +77,8 @@ void usb_tty_task(void *pvParameters){
         usb_leds_status();
         /* loop principal, comunicacao(transmissao e recepcao) */
         usb_loop();
+
+        taskEXIT_CRITICAL();
 
         /* marca maximo de consumo */
         stack_uso_usb = uxTaskGetStackHighWaterMark( NULL );
@@ -97,7 +99,7 @@ void usb_tx_1byte(signed char le){
 
     /* verifica se o queue esta funcionando */
     if(usb_buffer_queue == 0) return;
-    
+
     usb_buffer.out[0] = le;
     usb_buffer.co = 1;
     xQueueSendToBack(usb_buffer_queue, &usb_buffer, portMAX_DELAY);
@@ -107,7 +109,7 @@ void usb_tx_1byte(signed char le){
 /*
  * Carrega o buffer de saida com uma string localizada na ram
  */
-void usb_tty_print(char *s){
+void usb_print(char *s){
     unsigned int i = 0;
     unsigned int len = 0;
     char *sb = (char *)s;
@@ -135,27 +137,72 @@ void usb_tty_print(char *s){
     }
 }
 
+void usb_print_len(char *s, int len_t){
+    unsigned int i = 0;
+    unsigned int len = len_t;
+    char *sb = (char *)s;
+    USB_BUFFER buf;
+
+    /* verifica se o queue esta funcionando */
+    if(usb_buffer_queue == 0) return;
+
+    while(1){
+        if(len > USB_BUFFER_SIZE){
+            buf.co = USB_BUFFER_SIZE;
+            len-=USB_BUFFER_SIZE;
+            for(i = 0; i < USB_BUFFER_SIZE; i++){ buf.out[i] = *s++; }
+            xQueueSendToBack(usb_buffer_queue, &buf, portMAX_DELAY);
+        } else {
+            if(len > 0){
+                buf.co = len;
+                for(i = 0; i < len; i++){ buf.out[i] = *s++; }
+                xQueueSendToBack(usb_buffer_queue, &buf, portMAX_DELAY);
+            }
+            break;
+        }
+    }
+}
+
+void usb_print_nl(char *s){
+    usb_print("\r\n");
+    usb_print(s);
+}
+
 /* Verifica o estado do buffer de entrada */
-unsigned char usb_estado_rx(void) {
-    if (buffer_entrada_cont == 0) {
+unsigned int usb_estado_rx(void) {
+    if (buf_ent_cont == 0) {
         return 0;
     } else {
-        return (unsigned char) buffer_entrada_cont;
+        return buf_ent_cont;
     }
 }
 
 /* Ler o primeiro byte do buffer de entrada */
 char usb_buffer_rx(void) {
-    buffer_entrada_cont = 0;
-    return buffer_entrada[0];
+    static int i = 0;
+    char c = NULL;
+
+//    buffer_entrada_cont = 0;
+//    return buffer_entrada[0];
+
+    if(buf_ent_cont > 0){
+        c = buffer_entrada[i];
+        if(i >= buf_ent_cont - 1 ){
+            i = 0;
+            buf_ent_cont = 0;
+        } else {
+            i++;
+        }
+    }
+    return c;
 }
 
 void usb_leds_status(void) {
     static unsigned int led_count = 0;
 
     if (led_count == 0)
-        led_count = 6;
-    
+        led_count = 16;
+
     led_count--;
 
     if (USBSuspendControl == 1) {
@@ -198,20 +245,22 @@ unsigned int usb_loop(void){
     USB_BUFFER usb_task;
 
     /* regiao critica ? */
-    portENTER_CRITICAL();
+    //portENTER_CRITICAL();
+    //taskENTER_CRITICAL();
 
     if ((USBDeviceState < CONFIGURED_STATE) || (USBSuspendControl == 1)){
-        portEXIT_CRITICAL();
+        //portEXIT_CRITICAL();
+        //taskEXIT_CRITICAL();
         return 0;
     }
 
     if (USBUSARTIsTxTrfReady()){
-        if (buffer_entrada_cont == 0) {
-            buffer_entrada_cont = getsUSBUSART((char *)buffer_entrada, sizeof(buffer_entrada));
+        if (buf_ent_cont == 0) {
+            buf_ent_cont = getsUSBUSART((char *)buffer_entrada, sizeof(buffer_entrada));
         }
 
         if(usb_buffer_queue != 0){
-            if(xQueueReceive(usb_buffer_queue, &usb_task, ( portTickType ) 10)){
+            if(xQueueReceive(usb_buffer_queue, &usb_task, ( portTickType ) 20)){
                 putUSBUSART((char *)usb_task.out, usb_task.co);
             }
         }
@@ -219,7 +268,8 @@ unsigned int usb_loop(void){
 
     CDCTxService();
 
-    portEXIT_CRITICAL();
+    //portEXIT_CRITICAL();
+    //taskEXIT_CRITICAL();
 
     return 1;
 }

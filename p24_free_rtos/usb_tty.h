@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   usb_tty.h
  * Author: Felipe Bandeira
  *
@@ -8,24 +8,24 @@
 #ifndef USB_TTY_H
 #define	USB_TTY_H
 
-void usb_tty_init(void);
+void usb_init(void);
 void cria_queue(void);
 void usb_tty_task(void *pvParameters);
 void usb_tx_1byte(signed char le);
-void usb_tty_print(char *s);
-unsigned char usb_estado_rx(void);
+void usb_print(char *s);
+void usb_print_len(char *s, int len_t);
+void usb_print_nl(char *s);
+unsigned int usb_estado_rx(void);
 char usb_buffer_rx(void);
 
 
-#define USB_QUANTIDADE_QUEUE    8
+#define USB_QUANTIDADE_QUEUE    4
 #define USB_BUFFER_SIZE         32
 
 typedef struct{
     char out[USB_BUFFER_SIZE];
     int co;
 }USB_BUFFER;
-
-
 
 
 /*
@@ -36,11 +36,10 @@ typedef struct{
 #define ReadUART()          usb_buffer_rx()
 #define WriteUART(a)        usb_tx_1byte(a)
 //#define getsUART(a,b,c)     getsUART2(a,b,c)
-#define putsUART(a)         usb_tty_print((char*)a)
+#define putsUART(a)         usb_print((char*)a)
 //#define getcUART()          getcUART2()
 #define putcUART(a)         usb_tx_1byte(a)
-#define putrsUART(a)        usb_tty_print((char*)a)
-
+#define putrsUART(a)        usb_print((char*)a)
 
 /* compatibilidade com printf */
 #define __atribute_libc __attribute__((__section__(".libc")))

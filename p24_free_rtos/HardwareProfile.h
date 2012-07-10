@@ -61,7 +61,7 @@
 #include "usb_tty.h"
 
 // Set configuration fuses (but only once)
-#if defined(THIS_IS_STACK_APPLICATION)
+#if defined(P24_FREERTOS)
 
 #if defined(__PIC24F__)
     _CONFIG1(JTAGEN_OFF & GCP_OFF & GWRP_OFF & COE_OFF & FWDTEN_OFF & ICS_PGx2)

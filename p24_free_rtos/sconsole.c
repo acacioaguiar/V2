@@ -58,8 +58,8 @@ extern struct conex_lista_rede lista_rede;
  */
 static const char msg_inicio_printf[] = "\r\ninicio, printf()\r\n";
 static const char msg_fim_printf[] = "\r\nfim, printf";
-static const char msg_inicio_tty[] = "\r\ninicio, usb_tty_print()\r\n";
-static const char msg_fim_tty[] = "\r\nfim, usb_tty_print";
+static const char msg_inicio_tty[] = "\r\ninicio, usb_print()\r\n";
+static const char msg_fim_tty[] = "\r\nfim, usb_print";
 
 static const char msg_linha[] = "\r\n---------------------------";
 static const char msg_uso_stack[] = "\r\nuso do stack";
@@ -95,10 +95,10 @@ static const char *cmd[] = {"printf",
                             "let"};
 
 
-extern xTaskHandle h_usb;
 extern xTaskHandle h_tcpip;
 extern xTaskHandle h_conso;
 extern xTaskHandle ua_tarefa;
+extern xTaskHandle usb_controle;
 
 /*----------------------------------------------------------------------------*/
 /* FUNCAO PRINCIPAL                                                           */
@@ -113,7 +113,7 @@ void sconsole_sis(void){
 
     } else if((strcmppgm2ram(ARG_1, cmd[1]) == 0) && (QUA_ARG == 2)){
 
-        /* teste do usb_tty_print, mais rapido que o printf */
+        /* teste do usb_print, mais rapido que o printf */
         s_tty();
 
     } else if((strcmppgm2ram(ARG_1, cmd[2]) == 0) && (QUA_ARG == 2)){
@@ -190,19 +190,19 @@ static void s_tty(void){
     int i;
     char buf[512];
 
-    usb_tty_print((char *)msg_inicio_tty);
+    usb_print((char *)msg_inicio_tty);
     for(i = 0; i < (sizeof(buf)/sizeof(char)); i++){
         buf[i] = '0' + (i%10);
     }
-    usb_tty_print(buf);
-    usb_tty_print((char *)msg_fim_tty);
+    usb_print(buf);
+    usb_print((char *)msg_fim_tty);
 }
 
 static void s_stack(void){
-    usb_tty_print((char *)msg_linha);
-    usb_tty_print((char *)msg_uso_stack);
-    usb_tty_print((char *)msg_linha);
-    usb_tty_print((char *)msg_stack_livre_alocado);
+    usb_print((char *)msg_linha);
+    usb_print((char *)msg_uso_stack);
+    usb_print((char *)msg_linha);
+    usb_print((char *)msg_stack_livre_alocado);
     printf("\r\ntcpip | %03u   |  %03u    |", stack_uso_tcpip, STACK_MIN_SIZE_TCPIP);
     printf("\r\nconso | %03u   |  %03u    |", stack_uso_tcpip_console, STACK_MIN_SIZE_CONSOLE);
     printf("\r\nusb   | %03u   |  %03u    |", stack_uso_usb, STACK_MIN_SIZE_USB);
@@ -217,12 +217,12 @@ static void s_lcd(void){
 static void s_erro_argumentos(void){
     int i;
     
-    usb_tty_print((char *)msg_erro_argumento);
+    usb_print((char *)msg_erro_argumento);
     for(i = 0; i < QUA_ARG; i++){
         printf("\r\ne: \"%s\"", ARGV[i]);
     }
 
-    usb_tty_print((char *)msg_cmd_indisponiveis);
+    usb_print((char *)msg_cmd_indisponiveis);
     for(i = 0; i < QUAN_COMDS; i++){
         printf("\r\n%s", cmd[i]);
     }
@@ -241,12 +241,12 @@ static void s_redes(void){
     int i;
 
     if(lista_rede.qua == 0){
-        usb_tty_print((char *)msg_sem_redes_cadastradas);
+        usb_print((char *)msg_sem_redes_cadastradas);
         return;
     }
 
     for(i = 0; i < lista_rede.qua; i++){
-        usb_tty_print((char *)msg_linha);
+        usb_print((char *)msg_linha);
         printf("\r\ntipo  : %u", lista_rede.r[i].tipo);
         printf("\r\nssid  : %s", lista_rede.r[i].ssid);
         printf("\r\nsenha : %s", lista_rede.r[i].senh);
@@ -256,24 +256,24 @@ static void s_redes(void){
 static void s_prio(void){
 
     if(QUA_ARG == 4){
-        usb_tty_print((char *)msg_mudando);
+        usb_print((char *)msg_mudando);
         if(strcmppgm2ram(ARG_2, "tcpip") == 0){
 
-            usb_tty_print((char *)msg_tcpip);
+            usb_print((char *)msg_tcpip);
             vTaskPrioritySet(h_tcpip, atoi(ARG_3));
 
         } else if(strcmppgm2ram(ARG_2, "usb") == 0){
 
-            usb_tty_print((char *)msg_usb);
-            vTaskPrioritySet(h_usb, atoi(ARG_3));
+            usb_print((char *)msg_usb);
+            vTaskPrioritySet(usb_controle, atoi(ARG_3));
 
         } else if(strcmppgm2ram(ARG_2, "uacom") == 0){
-            usb_tty_print((char *)msg_ua);
+            usb_print((char *)msg_ua);
             vTaskPrioritySet(ua_tarefa, atoi(ARG_3));
 
         } else if(strcmppgm2ram(ARG_2, "conso") == 0){
 
-            usb_tty_print((char *)msg_console);
+            usb_print((char *)msg_console);
             vTaskPrioritySet(h_conso, atoi(ARG_3));
 
         }
@@ -281,7 +281,7 @@ static void s_prio(void){
 
     printf("\r\nquantidade de tarefas: %u", uxTaskGetNumberOfTasks());
     printf("\r\nprioridades:");
-    printf("\r\nusb  : %u", uxTaskPriorityGet(h_usb));
+    printf("\r\nusb  : %u", uxTaskPriorityGet(usb_controle));
     printf("\r\ntcpip: %u", uxTaskPriorityGet(h_tcpip));
     printf("\r\nconso: %u", uxTaskPriorityGet(h_conso));
     printf("\r\nuacom: %u", uxTaskPriorityGet(ua_tarefa));

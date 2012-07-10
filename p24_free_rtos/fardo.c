@@ -13,8 +13,6 @@
 #include "conex.h"
 #include "ua_com.h"
 
-
-static void cria_usb(void);
 static void cria_tcpip(void);
 static void t_tcpip(void *pvParameters);
 
@@ -29,7 +27,6 @@ unsigned portBASE_TYPE stack_uso_tcpip;
 
 int sinal_inicializado = 0;
 
-xTaskHandle h_usb;
 xTaskHandle h_tcpip;
 xTaskHandle h_conso;
 
@@ -45,17 +42,11 @@ void marca_inicializacao(void){
 }
 
 void fardo_inicia(void) {
-    cria_usb();
+    usb_init();
     cria_tcpip();
     ua_com_init();
 
     vTaskStartScheduler();
-}
-
-static void cria_usb(void) {
-    usb_tty_init();
-
-    xTaskCreate(usb_tty_task, (signed char *) "USB", STACK_MIN_SIZE_USB, NULL, FARDO_USB_PRIORIDADE, &h_usb);
 }
 
 static void cria_tcpip(void) {

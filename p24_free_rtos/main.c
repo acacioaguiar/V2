@@ -1,4 +1,4 @@
-#define THIS_IS_STACK_APPLICATION
+#define P24_FREERTOS
 
 #include <stdio.h>
 #include "HardwareProfile.h"
