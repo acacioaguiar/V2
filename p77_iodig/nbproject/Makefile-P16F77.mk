@@ -62,7 +62,7 @@ LDLIBSOPTIONS=
 FIXDEPS=fixDeps
 
 .build-conf:  ${BUILD_SUBPROJECTS}
-	${MAKE}  -f nbproject/Makefile-P16F77.mk dist/${CND_CONF}/${IMAGE_TYPE}/p77_iodig.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+	${MAKE} ${MAKE_OPTIONS} -f nbproject/Makefile-P16F77.mk dist/${CND_CONF}/${IMAGE_TYPE}/p77_iodig.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=16F77
 # ------------------------------------------------------------------------------------
