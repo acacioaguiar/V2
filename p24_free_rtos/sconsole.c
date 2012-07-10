@@ -25,9 +25,13 @@
 #include "ua_com.h"
 #include "dump_heap_info.h"
 #include "tcp_com.h"
+#include "sconsole.h"
 
 #define verifica_argumentos(argc, q)   if(argc != q){msg_erro_arg(); return;}
 
+static void msg_erro_arg(void);
+
+static void b_versao(int argc, char **argv);
 static void s_help(int argc, char **argv);
 static void s_printf(int argc, char **argv);
 static void s_tty(int argc, char **argv);
@@ -47,6 +51,7 @@ static void b_edit_file(int argc, char **argv);
 static void b_ls(int argc, char **argv) ;
 static void b_cat(int argc, char **argv);
 static void b_cwd(int argc, char **argv);
+static void b_remove_arq(int argc, char **argv);
 
 extern unsigned portBASE_TYPE stack_uso_usb;
 extern unsigned portBASE_TYPE stack_uso_ua_com;
@@ -108,11 +113,20 @@ static const BASH_CMD bash_cmd[] = {
     {"ls", b_ls},
     {"cat", b_cat},
     {"cwd", b_cwd},
+    {"ver", b_versao},
+    {"rm", b_remove_arq},
     {NULL, NULL}
 };
 
-void msg_erro_arg(void){
+static void msg_erro_arg(void){
     printf("\r\nerro: nos argumentos");
+}
+
+static void b_versao(int argc, char **argv){
+    (void)argc;
+    (void)argv;
+    usb_print("\r\n");
+    usb_print(VERSAO_V2);
 }
 
 void executa_cmd(int argc, char **argv) {
@@ -444,6 +458,17 @@ static void b_cwd(int argc, char **argv) {
     }
 
     printf("\r\n%s", dir_atual);
+}
+
+static void b_remove_arq(int argc, char **argv) {
+    verifica_argumentos(argc, 2);
+
+    if (FSremove(argv[1])) {
+        usb_print("\r\nerro: na remocao do arquivo");
+    } else {
+        usb_print("\r\nsucesso na remocao de: ");
+        usb_print(argv[1]);
+    }
 }
 
 #endif //#if defined(WF_CONSOLE)

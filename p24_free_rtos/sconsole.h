@@ -8,6 +8,8 @@
 #ifndef SCONSOLE_H
 #define	SCONSOLE_H
 
+#define VERSAO_V2 "100"
+
 void executa_cmd(int argc, char **argv);
 
 #endif	/* SCONSOLE_H */

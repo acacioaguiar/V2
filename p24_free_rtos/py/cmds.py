@@ -8,20 +8,22 @@ Comandos
 """
 
 ENTER = "\r"
-
 ESPACO = " "
 
+# complemento necessario devido ao iwconsole da microchip
+COMPLEMENTO = "sis" + ESPACO
+
 # verifica o stack do freertos
-STACK = "stack"
+STACK = COMPLEMENTO+"stack"
 
 # lista os arquivos do diretorio raiz
-LS = "ls"
+LS = COMPLEMENTO+"ls"
 
 # versao do modulo
-VERSAO = "ver"
+VERSAO = COMPLEMENTO+"ver"
 
 # remove um arquivo
-RM = "rm"
+RM = COMPLEMENTO+"rm"
 
 # cria um arquivo
-EDIT = "edit"
+EDIT = COMPLEMENTO+"edit"

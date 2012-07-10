@@ -90,11 +90,11 @@ def busca_modulo():
         # envia o comando <ver> para o modulo
         com.write(VERSAO+ENTER)
 
-        rec = com.read(10)
+        rec = com.read(100)
         com.close()
 
         try:
-            if int(rec[5:8]) >= 100:
+            if int(rec.split()[2]) >= 100:
                 modulo.append(i)
         except:
             pass
@@ -168,7 +168,9 @@ def fecha_porta(com, p):
             print "erro: nao foi possivel fechar a porta"
 
 def read_serial(com):
-    sleep(0.1)
+    print "processando..."
+    
+    sleep(1)
     iqual = 0
     if com.inWaiting() > 0:
         ant = com.inWaiting()
@@ -179,7 +181,7 @@ def read_serial(com):
                 ant = com.inWaiting
             else:
                 iqual += 1
-                sleep(0.1)
+                sleep(1)
                 
         return com.read(com.inWaiting())
     else:
