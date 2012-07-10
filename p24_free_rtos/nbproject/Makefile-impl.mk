@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=p24_free_rtos
 
 # Active Configuration
-DEFAULTCONF=p24-c30-o1
+DEFAULTCONF=p24-c30
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=p24-c30-o1 p24-c30-o0 
+ALLCONFS=p24-c30 
 
 
 # build
@@ -45,15 +45,13 @@ ALLCONFS=p24-c30-o1 p24-c30-o0
 
 # clobber
 .clobber-impl: .clobber-pre .depcheck-impl
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=p24-c30-o1 clean
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=p24-c30-o0 clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=p24-c30 clean
 
 
 
 # all
 .all-impl: .all-pre .depcheck-impl
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=p24-c30-o1 build
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=p24-c30-o0 build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=p24-c30 build
 
 
 

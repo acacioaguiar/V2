@@ -18,6 +18,8 @@ static void tcp_console(void *pvParameters);
 
 xTaskHandle tcpip_handle;
 xTaskHandle console_handle;
+unsigned portBASE_TYPE tcpip_stack;
+unsigned portBASE_TYPE console_stack;
 
 void tcp_init(void) {
     xTaskCreate(tcp_pilha, (signed char *) "TCPIP", TCP_STACK, NULL, TCP_PRIORIDADE, &tcpip_handle);
@@ -26,6 +28,8 @@ void tcp_init(void) {
 
 static void tcp_pilha(void *pvParameters) {
     (void)pvParameters;
+
+    tcpip_stack = uxTaskGetStackHighWaterMark(NULL);
     
     StackInit();
     wifi_conexao_padrao();
@@ -38,15 +42,21 @@ static void tcp_pilha(void *pvParameters) {
         /* ping da microchip, ver arquivo "TCP Discovery.jar" */
         AnnounceIP();
 #endif
+
+        tcpip_stack = uxTaskGetStackHighWaterMark(NULL);
     }
 }
 
 static void tcp_console(void *pvParameters) {
     (void)pvParameters;
 
+    console_stack = uxTaskGetStackHighWaterMark(NULL);
+
     WFConsoleInit();
     while(1){
         WFConsoleProcess();
         WFConsoleProcessEpilogue();
+
+        console_stack = uxTaskGetStackHighWaterMark(NULL);
     }
 }

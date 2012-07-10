@@ -90,5 +90,7 @@ void rc_rede(void){
             lista_rede.qua++;
             j++;
         }
-    }    
+    }
+
+    FSchdir("\\");
 }
