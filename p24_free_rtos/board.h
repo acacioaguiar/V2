@@ -11,6 +11,7 @@
 void board_init(void);
 void board_mem_ini(void);
 
+#define apaga_todos_leds() {LED0_IO = 1; LED1_IO = 1; LED2_IO = 1; LED3_IO = 1; LED4_IO = 1;}
 
 /* apenas o led 0 acesso */
 #define LED0_1()  {LED0_IO = 0; LED1_IO = 1; LED2_IO = 1; LED3_IO = 1; LED4_IO = 1;}

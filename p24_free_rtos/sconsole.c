@@ -53,7 +53,7 @@ extern struct conex_lista_rede lista_rede;
 
 static const char msg_linha[] = "\r\n---------------------------";
 
-extern xTaskHandle h_tcpip;
+extern xTaskHandle tcpip_handle;
 extern xTaskHandle h_conso;
 extern xTaskHandle ua_tarefa;
 extern xTaskHandle usb_controle;

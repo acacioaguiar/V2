@@ -14,20 +14,20 @@
 APP_CONFIG AppConfig;
 
 int main(void){
-    board_init();
-    TickInit();
-    board_mem_ini(); /* inicializa o cartao de memoria e o sistema de arquivos fat */
-    con_atualiza_redes(); /* verifica o arquivo de inicializacao *ini */
-    wifi_init_appconfig(); /* carrega o AppConfig com os valores padroes */
-    usb_init(); /* inicia a tarefa da comunicacao usb */
-    ua_com_init(); /* inicia a tarefa da comunicacao serial com o pic16f77 */
-    tcp_init(); /* inicia a tarefa da pilha tcpip */
+    board_init();           /* inicia o clock, configura as portas...*/
+    TickInit();             /* temporizador */
+    board_mem_ini();        /* inicializa o cartao de memoria e o sistema de arquivos fat */
+    con_atualiza_redes();   /* verifica o arquivo de inicializacao *ini */
+    wifi_init_appconfig();  /* carrega o AppConfig com os valores padroes */
+    usb_init();             /* inicia a tarefa da comunicacao usb */
+    ua_com_init();          /* inicia a tarefa da comunicacao serial com o pic16f77 */
+    tcp_init();             /* inicia a tarefa da pilha tcpip */
 
     LED0_IO = 0;
 
-    vTaskStartScheduler();
+    vTaskStartScheduler();  /* faz o freertos gerenciar as tarefas */
 
-    LED0_IO = 1;
+    apaga_todos_leds();
 
     while (1) {
         /* nao foi possivel alocar memoria */
@@ -42,12 +42,7 @@ void vApplicationIdleHook(void) {
 }
 
 void vApplicationStackOverflowHook(void) {
-    LED0_IO = 1;
-    LED1_IO = 1;
-    LED2_IO = 1;
-    LED3_IO = 1;
-    LED4_IO = 1;
-
+    apaga_todos_leds();
 
     /* Look at pxCurrentTCB to see which task overflowed its stack. */
     while (1) {

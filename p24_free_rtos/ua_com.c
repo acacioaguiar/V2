@@ -69,7 +69,7 @@ static char u2rx(void){
     char c;
 
     /* espera alguma coisa! */
-    while(U2STAbits.URXDA == 0); //while(IFS1bits.U2RXIF == 0);
+    while(IFS1bits.U2RXIF == 0); //while(U2STAbits.URXDA == 0);
     c = U2RXREG;
     IFS1bits.U2RXIF = 0;
     
@@ -86,15 +86,14 @@ void ua_loop(void *pvParameters){
     char c;
     int i;
 
+    (void)pvParameters;
+
     /* inicia a marcacao */
     stack_uso_ua_com = uxTaskGetStackHighWaterMark(NULL);
 
     sincroniza();
 
     uart_queue = xQueueCreate(QUA_QUEUE_UA, sizeof(struct ua_struct_tx));
-
-//    /* sinaliza para o fardo.c que ua_loop foi iniciada e se encontra no loop */
-//    marca_inicializacao();
     
     while(1){
         /* trata os erros de overflow e frame */
@@ -109,11 +108,11 @@ void ua_loop(void *pvParameters){
         if(uart_queue != 0){
             if(xQueueReceive(uart_queue, &buf, (portTickType)10)){
 
-                /* aqui é um ponto critico ? rummm */
-                portENTER_CRITICAL();
+                //taskENTER_CRITICAL();
+                //portENTER_CRITICAL();
 
                 for(i = 0; i < buf.qua; i++){
-                    
+
                     u2tx(buf.cmd[i]);
                     c = u2rx();
 
@@ -127,7 +126,8 @@ void ua_loop(void *pvParameters){
                     ua_retorno = c;
                 }
 
-                portEXIT_CRITICAL();
+                //portEXIT_CRITICAL();
+                //taskEXIT_CRITICAL();
             }
         }
 
