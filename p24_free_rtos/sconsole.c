@@ -144,8 +144,7 @@ void executa_cmd(int argc, char **argv) {
         bc = bash_cmd + i;
         if (bc->cmd == NULL) {
             usb_print("\r\nerro: comando nao encontrado");
-            for (i = 0; i < argc; i++)
-                printf("\r\nargc %u : argv %s", i, argv[i]);
+            s_help(argc, argv);
 
             break;
         }
