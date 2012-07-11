@@ -1,4 +1,4 @@
-#define P24_FREERTOS
+#define THIS_IS_STACK_APPLICATION
 
 #include <stdio.h>
 #include "HardwareProfile.h"
@@ -10,6 +10,7 @@
 #include "TCPIP Stack/TCPIP.h"
 #include "conex.h"
 #include "ua_com.h"
+#include "tcp_com.h"
 
 APP_CONFIG AppConfig;
 

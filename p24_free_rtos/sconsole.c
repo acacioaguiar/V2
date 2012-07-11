@@ -502,6 +502,7 @@ static void corrige_diretorio(void){
 }
 
 static void b_cria_pasta(int argc, char **argv){
-
+    (void)argc;
+    (void)argv;
 }
 #endif //#if defined(WF_CONSOLE)

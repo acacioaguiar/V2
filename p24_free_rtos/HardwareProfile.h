@@ -57,18 +57,14 @@
 
 #include "GenericTypeDefs.h"
 #include "Compiler.h"
-
 #include "usb_tty.h"
 
-// Set configuration fuses (but only once)
-#if defined(P24_FREERTOS)
-
-#if defined(__PIC24F__)
-    _CONFIG1(JTAGEN_OFF & GCP_OFF & GWRP_OFF & COE_OFF & FWDTEN_OFF & ICS_PGx2)
-    _CONFIG2(PLL_96MHZ_ON & IESO_OFF & FCKSM_CSDCMD & OSCIOFNC_OFF & POSCMOD_HS & FNOSC_PRIPLL & PLLDIV_DIV5 & IOL1WAY_ON)
+#if defined(THIS_IS_STACK_APPLICATION)
+    #if defined(__PIC24F__)
+        _CONFIG1(JTAGEN_OFF & GCP_OFF & GWRP_OFF & COE_OFF & FWDTEN_OFF & ICS_PGx2)
+        _CONFIG2(PLL_96MHZ_ON & IESO_OFF & FCKSM_CSDCMD & OSCIOFNC_OFF & POSCMOD_HS & FNOSC_PRIPLL & PLLDIV_DIV5 & IOL1WAY_ON)
+    #endif
 #endif
-
-#endif // Prevent more than one set of config fuse definitions
 
 // Clock frequency value.
 // This value is used to calculate Tick Counter value
