@@ -13,7 +13,7 @@
 
 APP_CONFIG AppConfig;
 
-int main(void){
+int main(void) {
     board_init();           /* inicia o clock, configura as portas...*/
     TickInit();             /* temporizador */
     board_mem_ini();        /* inicializa o cartao de memoria e o sistema de arquivos fat */
@@ -25,7 +25,7 @@ int main(void){
 
     LED0_IO = 0;
 
-    vTaskStartScheduler();  /* faz o freertos gerenciar as tarefas */
+    vTaskStartScheduler(); /* faz o freertos gerenciar as tarefas */
 
     apaga_todos_leds();
 
@@ -39,6 +39,7 @@ int main(void){
 void vApplicationIdleHook(void) {
     /* Schedule the co-routines from within the idle task hook. */
     vCoRoutineSchedule();
+    LED0_IO = ~LED0_IO;
 }
 
 void vApplicationStackOverflowHook(void) {

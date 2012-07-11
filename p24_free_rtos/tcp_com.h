@@ -9,5 +9,9 @@
 #define	TCP_COM_H
 
 void tcp_init(void);
+void tcp_supend(void);
+void tcp_resume(void);
+void console_suspend(void);
+void console_resume(void);
 
 #endif	/* TCP_COM_H */

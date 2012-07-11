@@ -42,9 +42,7 @@ static void s_prio(int argc, char **argv);
 static void s_ua(int argc, char **argv);
 static void s_lmsg(int argc, char **argv);
 static void s_letreiro(int argc, char **argv);
-
 static void dumb_mem(int argc, char **argv);
-
 int bash_read_null(char *s, int max);
 int bash_read_null(char *s, int max);
 static void b_edit_file(int argc, char **argv);
@@ -52,6 +50,11 @@ static void b_ls(int argc, char **argv) ;
 static void b_cat(int argc, char **argv);
 static void b_cwd(int argc, char **argv);
 static void b_remove_arq(int argc, char **argv);
+static void b_muda_diretorio(int argc, char **argv);
+static void corrige_diretorio(void);
+static void b_cria_pasta(int argc, char **argv);
+
+static char dir_trabalho[32];
 
 extern unsigned portBASE_TYPE stack_uso_usb;
 extern unsigned portBASE_TYPE stack_uso_ua_com;
@@ -115,6 +118,8 @@ static const BASH_CMD bash_cmd[] = {
     {"cwd", b_cwd},
     {"ver", b_versao},
     {"rm", b_remove_arq},
+    {"cd", b_muda_diretorio},
+    {"mkdir", b_cria_pasta},
     {NULL, NULL}
 };
 
@@ -134,6 +139,8 @@ void executa_cmd(int argc, char **argv) {
     const BASH_CMD* bc;
 
     #define offset 1
+
+    corrige_diretorio();
 
     while (1) {
         bc = bash_cmd + i;
@@ -362,6 +369,8 @@ static void b_edit_file(int argc, char **argv) {
 
     verifica_argumentos(argc, 2);
 
+    tcp_supend();
+
     file = FSfopen(argv[1], "w");
     if (file == NULL) {
         usb_print("\r\nerro: nao foi possivel criar o arquivo");
@@ -396,6 +405,8 @@ fecha_arquivo:
     if (FSfclose(file) != NULL) {
         usb_print("\r\nerro: nao foi possivel fechar o arquivo");
     }
+
+    tcp_resume();
 }
 
 static void b_ls(int argc, char **argv) {
@@ -471,4 +482,26 @@ static void b_remove_arq(int argc, char **argv) {
     }
 }
 
+static void b_muda_diretorio(int argc, char **argv){
+    verifica_argumentos(argc, 2);
+
+    if(FSchdir(argv[1])){
+        usb_print("\r\nerro: nao foi possivel mudar o diretorio");
+        return;
+    }
+    
+    if(strlen(argv[1]) < (sizeof(dir_trabalho)/sizeof(char))){
+        strcpy(dir_trabalho, argv[1]);
+    }
+}
+
+static void corrige_diretorio(void){
+    if(FSchdir(dir_trabalho)){
+        usb_print("\r\nerro: nao foi possivel corrigir o diretorio");
+    }
+}
+
+static void b_cria_pasta(int argc, char **argv){
+
+}
 #endif //#if defined(WF_CONSOLE)

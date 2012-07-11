@@ -60,3 +60,19 @@ static void tcp_console(void *pvParameters) {
         console_stack = uxTaskGetStackHighWaterMark(NULL);
     }
 }
+
+void tcp_supend(void){
+    vTaskSuspend(tcpip_handle);
+}
+
+void tcp_resume(void){
+    vTaskResume(tcpip_handle);
+}
+
+void console_suspend(void){
+    vTaskSuspend(console_handle);
+}
+
+void console_resume(void){
+    vTaskResume(console_handle);
+}
