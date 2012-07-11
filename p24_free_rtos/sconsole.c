@@ -23,7 +23,6 @@
 #include "rc.h"
 #include "conex.h"
 #include "ua_com.h"
-#include "dump_heap_info.h"
 #include "tcp_com.h"
 #include "sconsole.h"
 
@@ -42,19 +41,16 @@ static void s_prio(int argc, char **argv);
 static void s_ua(int argc, char **argv);
 static void s_lmsg(int argc, char **argv);
 static void s_letreiro(int argc, char **argv);
-static void dumb_mem(int argc, char **argv);
 int bash_read_null(char *s, int max);
 int bash_read_null(char *s, int max);
 static void b_edit_file(int argc, char **argv);
-static void b_ls(int argc, char **argv) ;
+static void b_ls(int argc, char **argv);
 static void b_cat(int argc, char **argv);
 static void b_cwd(int argc, char **argv);
 static void b_remove_arq(int argc, char **argv);
 static void b_muda_diretorio(int argc, char **argv);
-static void corrige_diretorio(void);
 static void b_cria_pasta(int argc, char **argv);
-
-static char dir_trabalho[32] = "\\";
+static void b_deleta_pasta(int argc, char **argv);
 
 extern unsigned portBASE_TYPE stack_uso_usb;
 extern unsigned portBASE_TYPE stack_uso_ua_com;
@@ -73,21 +69,25 @@ extern xTaskHandle usb_controle;
 
 static const char msg_linha[] = "\r\n---------------------------";
 static const char msg_help[] =
-"\r\ncomandos disponiveis no sub console:"
-"\r\n- help : mensagem de ajuda"
-"\r\n- stack : stack usado pelas tarefas"
-"\r\n- printf : testa o printf"
-"\r\n- usb_tty : testa o usb_tty"
-"\r\n- tcpip : informa endereco de ip"
-"\r\n- redes : informa as redes cadastradas"
-"\r\n- prio : mostra a prioridade das tarefas"
-"\r\n- ua : testa a comunicacao uart"
-"\r\n- lsmg <mensagem> : envia uma mensagem para o lcd"
-"\r\n- let <n> : mostra o letreiro"
-"\r\n- edit : especial "
-"\r\n- ls : exibe o conteudo do diretorio atual"
-"\r\n- cat : exibe o conteudo de um arquivo"
-"\r\n- cwd : mostra o diretorio atual";
+        "\r\ncomandos disponiveis no sub console:"
+        "\r\n- help : mensagem de ajuda"
+        "\r\n- stack : stack usado pelas tarefas"
+        "\r\n- printf : testa o printf"
+        "\r\n- usb_tty : testa o usb_tty"
+        "\r\n- tcpip : informa endereco de ip"
+        "\r\n- redes : informa as redes cadastradas"
+        "\r\n- prio : mostra a prioridade das tarefas"
+        "\r\n- ua : testa a comunicacao uart"
+        "\r\n- lsmg <mensagem> : envia uma mensagem para o lcd"
+        "\r\n- let <n> : mostra o letreiro"
+        "\r\n- edit : especial "
+        "\r\n- ls : exibe o conteudo do diretorio atual"
+        "\r\n- cat : exibe o conteudo de um arquivo"
+        "\r\n- cwd : mostra o diretorio atual"
+        "\r\n- cd : muda o diretorio"
+        "\r\n- mkdir : cria uma pasta"
+        "\r\n- rmdir : remove uma pasta"
+        "\r\n- ver : versao";
 
 typedef void(*b_cmd_manipula)(int argc, char **argv);
 
@@ -112,7 +112,6 @@ static const BASH_CMD bash_cmd[] = {
     {"lmsg", s_lmsg},
     {"let", s_letreiro},
     {"edit", b_edit_file},
-    {"mem", dumb_mem},
     {"ls", b_ls},
     {"cat", b_cat},
     {"cwd", b_cwd},
@@ -120,16 +119,17 @@ static const BASH_CMD bash_cmd[] = {
     {"rm", b_remove_arq},
     {"cd", b_muda_diretorio},
     {"mkdir", b_cria_pasta},
+    {"rmdir", b_deleta_pasta},
     {NULL, NULL}
 };
 
-static void msg_erro_arg(void){
+static void msg_erro_arg(void) {
     printf("\r\nerro: nos argumentos");
 }
 
-static void b_versao(int argc, char **argv){
-    (void)argc;
-    (void)argv;
+static void b_versao(int argc, char **argv) {
+    (void) argc;
+    (void) argv;
     usb_print("\r\n");
     usb_print(VERSAO_V2);
 }
@@ -138,9 +138,7 @@ void executa_cmd(int argc, char **argv) {
     int i = 0;
     const BASH_CMD* bc;
 
-    #define offset 1
-
-    corrige_diretorio();
+#define offset 1
 
     while (1) {
         bc = bash_cmd + i;
@@ -154,7 +152,7 @@ void executa_cmd(int argc, char **argv) {
         /* busca o comando, cadastrado em bash_cmd */
         if (!strcmp(bc->cmd, argv[offset])) {
             if (bc->funcao)
-                bc->funcao(argc-offset, argv+offset);
+                bc->funcao(argc - offset, argv + offset);
             /* comando encontrado, processado e fim */
             break;
         }
@@ -162,10 +160,10 @@ void executa_cmd(int argc, char **argv) {
     }
 }
 
-static void s_help(int argc, char **argv){
-    (void)argc;
-    (void)argv;
-    usb_print((char *)msg_help);
+static void s_help(int argc, char **argv) {
+    (void) argc;
+    (void) argv;
+    usb_print((char *) msg_help);
 }
 
 static void s_printf(int argc, char **argv) {
@@ -294,12 +292,6 @@ static void s_letreiro(int argc, char **argv) {
     lcd_letreiro(atoi(argv[1]));
 }
 
-static void dumb_mem(int argc, char **argv){
-    (void)argc;
-    (void)argv;
-    _dump_heap_info();
-}
-
 /* leitura de uma string, ENTER para terminar ou limite do buffer */
 void bash_read(char *s, int max) {
     int i = 0;
@@ -369,8 +361,6 @@ static void b_edit_file(int argc, char **argv) {
 
     verifica_argumentos(argc, 2);
 
-    tcp_supend();
-
     file = FSfopen(argv[1], "w");
     if (file == NULL) {
         usb_print("\r\nerro: nao foi possivel criar o arquivo");
@@ -405,8 +395,6 @@ fecha_arquivo:
     if (FSfclose(file) != NULL) {
         usb_print("\r\nerro: nao foi possivel fechar o arquivo");
     }
-
-    tcp_resume();
 }
 
 static void b_ls(int argc, char **argv) {
@@ -420,9 +408,9 @@ static void b_ls(int argc, char **argv) {
 
     /* procura todos os arquivos, pastas... */
     if (!FindFirst("*.*", atributos, &busca)) {
-        printf("\r\n%02u - %03lu  %s", i++, busca.filesize, busca.filename);
+        printf("\r\n%02u - %03lu  %s - %u", i++, busca.filesize, busca.filename, busca.attributes);
         while (!FindNext(&busca)) {
-            printf("\r\n%02i - %03lu  %s", i++, busca.filesize, busca.filename);
+            printf("\r\n%02i - %03lu  %s - %u", i++, busca.filesize, busca.filename, busca.attributes);
         }
     }
 }
@@ -455,7 +443,6 @@ static void b_cat(int argc, char **argv) {
     FSfclose(file);
 }
 
-
 static void b_cwd(int argc, char **argv) {
     char s[16];
     int c;
@@ -482,27 +469,33 @@ static void b_remove_arq(int argc, char **argv) {
     }
 }
 
-static void b_muda_diretorio(int argc, char **argv){
+static void b_muda_diretorio(int argc, char **argv) {
     verifica_argumentos(argc, 2);
 
-    if(FSchdir(argv[1])){
+    if (FSchdir(argv[1])) {
         usb_print("\r\nerro: nao foi possivel mudar o diretorio");
         return;
     }
-    
-    if(strlen(argv[1]) < (sizeof(dir_trabalho)/sizeof(char))){
-        strcpy(dir_trabalho, argv[1]);
+}
+
+static void b_cria_pasta(int argc, char **argv) {
+    verifica_argumentos(argc, 2);
+
+    if (FSmkdir(argv[1])) {
+        usb_print("\r\nerro: nao foi possivel criar a pasta");
+    } else {
+        printf("\r\npasta %s criada", argv[1]);
     }
 }
 
-static void corrige_diretorio(void){
-    if(FSchdir(dir_trabalho)){
-        usb_print("\r\nerro: nao foi possivel corrigir o diretorio");
+static void b_deleta_pasta(int argc, char **argv) {
+    verifica_argumentos(argc, 2);
+
+    if (FSrmdir(argv[1], 1)) {
+        usb_print("\r\nerro: nao foi possivel deletar a pasta");
+    } else {
+        printf("\r\npasta %s deletada", argv[1]);
     }
 }
 
-static void b_cria_pasta(int argc, char **argv){
-    (void)argc;
-    (void)argv;
-}
 #endif //#if defined(WF_CONSOLE)

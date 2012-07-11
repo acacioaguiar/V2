@@ -150,7 +150,6 @@
         <itemPath>rc.h</itemPath>
         <itemPath>sconsole.h</itemPath>
         <itemPath>tcp_com.h</itemPath>
-        <itemPath>dump_heap_info.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
@@ -294,7 +293,6 @@
         <itemPath>tempo.c</itemPath>
         <itemPath>main.c</itemPath>
         <itemPath>armadilhas.c</itemPath>
-        <itemPath>dump_heap_info.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
