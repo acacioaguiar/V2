@@ -45,50 +45,50 @@ extern heap_info _Aldata;
  */
 
 void _dump_heap_info() {
-  cell_info *c;
-  cell_info *f;
-  unsigned int s = 0;
-  int i;
-  int header =0;
-
-  extern void _heap, _eheap;
-  extern void *__curbrk;
-
-  fprintf(stderr,"\nUnused Heap status:\n"
-                 " start: 0x%8.8x   end: 0x%8.8x\n", &_heap, &_eheap);
-  if (__curbrk) {
-     s = (unsigned int)&_eheap - (unsigned int)__curbrk;
-  } else {
-     s = (unsigned int)&_eheap - (unsigned int)&_heap;
-  }
-  fprintf(stderr," current:0x%8.8x remaining bytes: %d\n", __curbrk, s);
-
-  c = &_heap;
-  f = _Aldata.free_list;
-  i = 0;
-  do {
-    if (f && (c == f)) {
-      f = c->next;
-    } else if ((void*)c < __curbrk) {
-      if (header == 0) {
-        fprintf(stderr,"\nAllocated blocks:\n");
-        fprintf(stderr," [id ] address     size\n");
-        header=1;
-      }
-      fprintf(stderr," [%.3d] 0x%8.8x  %d\n", i, c, c->size);
-      i++;
-    }
-    c = (cell_info*)(((unsigned int)(c)) + c->size);
-  } while ((void*)c < __curbrk);
-  if (_Aldata.free_list) {
-    fprintf(stderr,"\nFree blocks:\n");
-    fprintf(stderr," [id ] address     size\n");
-    for (i = 0, c = _Aldata.free_list; c; i++,c = c->next) {
-      fprintf(stderr," [%.3d] 0x%8.8x  %d\n", i, c, c->size);
-      s += c->size;
-    }
-  }
-  fprintf(stderr,"\nTotal bytes left: %d\n\n", s);
+//  cell_info *c;
+//  cell_info *f;
+//  unsigned int s = 0;
+//  int i;
+//  int header =0;
+//
+//  extern void _heap, _eheap;
+//  extern void *__curbrk;
+//
+//  fprintf(stderr,"\nUnused Heap status:\n"
+//                 " start: 0x%8.8x   end: 0x%8.8x\n", &_heap, &_eheap);
+//  if (__curbrk) {
+//     s = (unsigned int)&_eheap - (unsigned int)__curbrk;
+//  } else {
+//     s = (unsigned int)&_eheap - (unsigned int)&_heap;
+//  }
+//  fprintf(stderr," current:0x%8.8x remaining bytes: %d\n", __curbrk, s);
+//
+//  c = &_heap;
+//  f = _Aldata.free_list;
+//  i = 0;
+//  do {
+//    if (f && (c == f)) {
+//      f = c->next;
+//    } else if ((void*)c < __curbrk) {
+//      if (header == 0) {
+//        fprintf(stderr,"\nAllocated blocks:\n");
+//        fprintf(stderr," [id ] address     size\n");
+//        header=1;
+//      }
+//      fprintf(stderr," [%.3d] 0x%8.8x  %d\n", i, c, c->size);
+//      i++;
+//    }
+//    c = (cell_info*)(((unsigned int)(c)) + c->size);
+//  } while ((void*)c < __curbrk);
+//  if (_Aldata.free_list) {
+//    fprintf(stderr,"\nFree blocks:\n");
+//    fprintf(stderr," [id ] address     size\n");
+//    for (i = 0, c = _Aldata.free_list; c; i++,c = c->next) {
+//      fprintf(stderr," [%.3d] 0x%8.8x  %d\n", i, c, c->size);
+//      s += c->size;
+//    }
+//  }
+//  fprintf(stderr,"\nTotal bytes left: %d\n\n", s);
 }
 
 

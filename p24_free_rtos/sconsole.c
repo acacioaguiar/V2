@@ -54,7 +54,7 @@ static void b_muda_diretorio(int argc, char **argv);
 static void corrige_diretorio(void);
 static void b_cria_pasta(int argc, char **argv);
 
-static char dir_trabalho[32];
+static char dir_trabalho[32] = "\\";
 
 extern unsigned portBASE_TYPE stack_uso_usb;
 extern unsigned portBASE_TYPE stack_uso_ua_com;
