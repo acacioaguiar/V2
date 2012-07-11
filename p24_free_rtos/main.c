@@ -11,6 +11,8 @@
 #include "conex.h"
 #include "ua_com.h"
 #include "tcp_com.h"
+#include "v2_main.h"
+#include "usb_tty.h"
 
 APP_CONFIG AppConfig;
 
@@ -23,6 +25,7 @@ int main(void) {
     usb_init();             /* inicia a tarefa da comunicacao usb */
     ua_com_init();          /* inicia a tarefa da comunicacao serial com o pic16f77 */
     tcp_init();             /* inicia a tarefa da pilha tcpip */
+    v2_main_init();         /* inicia o loop principal do projeto v2 */
 
     LED0_IO = 0;
 
@@ -40,7 +43,7 @@ int main(void) {
 void vApplicationIdleHook(void) {
     /* Schedule the co-routines from within the idle task hook. */
     vCoRoutineSchedule();
-    LED0_IO = ~LED0_IO;
+    //LED0_IO = ~LED0_IO;
 }
 
 void vApplicationStackOverflowHook(void) {

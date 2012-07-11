@@ -67,6 +67,8 @@ extern struct conex_lista_rede lista_rede;
 extern xTaskHandle ua_tarefa;
 extern xTaskHandle usb_controle;
 
+extern xSemaphoreHandle tcpip_httpserver;
+
 static const char msg_linha[] = "\r\n---------------------------";
 static const char msg_help[] =
         "\r\ncomandos disponiveis no sub console:"
@@ -132,6 +134,12 @@ static void b_versao(int argc, char **argv) {
     (void) argv;
     usb_print("\r\n");
     usb_print(VERSAO_V2);
+
+    if(tcpip_desabilita_httpserver()){
+        usb_print("\r\nhttpserver desabilitado");
+    } else {
+        usb_print("\r\nerro: httpserver nao foi desabilitado");
+    }
 }
 
 void executa_cmd(int argc, char **argv) {
@@ -359,6 +367,11 @@ static void b_edit_file(int argc, char **argv) {
     int retorno;
 
     verifica_argumentos(argc, 2);
+
+    if(tcpip_desabilita_httpserver() == 0){
+        usb_print("\r\nerro: nao foi possivel desabilita o httpserver");
+        return;
+    }
 
     file = FSfopen(argv[1], "w");
     if (file == NULL) {

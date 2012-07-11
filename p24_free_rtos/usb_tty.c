@@ -35,7 +35,11 @@ xTaskHandle usb_controle;
 
 void usb_init(void){
     USBDeviceInit();
-    xTaskCreate(usb_tty_task, (signed char *) "USB", configMINIMAL_STACK_SIZE * 2, NULL, tskIDLE_PRIORITY+1, &usb_controle);
+    xTaskCreate(usb_tty_task, (signed char *) "USB", USB_STACK, NULL, USB_PRIORIDADE, &usb_controle);
+}
+
+void usb_altera_prioridade(int prioridade){
+    vTaskPrioritySet(usb_controle, (unsigned short) prioridade);
 }
 
 /*
