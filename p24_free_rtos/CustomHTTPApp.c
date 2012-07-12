@@ -58,24 +58,8 @@
 #if defined(STACK_USE_HTTP2_SERVER)
 
 #include "TCPIP Stack/TCPIP.h"
+#include "versao.h"
 
-// Sticky status message variable.
-// This is used to indicated whether or not the previous POST operation was
-// successful.  The application uses these to store status messages when a
-// POST operation redirects.  This lets the application provide status messages
-// after a redirect, when connection instance data has already been lost.
-static BOOL lastSuccess = FALSE;
-
-// Stick status message variable.  See lastSuccess for details.
-static BOOL lastFailure = FALSE;
-
-/*****************************************************************************
-  Function:
-    BYTE HTTPNeedsAuth(BYTE* cFile)
-
-  Internal:
-    See documentation in the TCP/IP Stack API or HTTP2.h for details.
- ***************************************************************************/
 #if defined(HTTP_USE_AUTHENTICATION)
 
 BYTE HTTPNeedsAuth(BYTE* cFile) {
@@ -354,7 +338,7 @@ HTTP_IO_RESULT HTTPExecutePost(void) {
 #endif //(use_post)
 
 void HTTPPrint_versao(void){
-    TCPPutROMString(sktHTTP,(ROM void*)"100");
+    TCPPutROMString(sktHTTP,(ROM void*)VERSAO_V2);
 }
 
 

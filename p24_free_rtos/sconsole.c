@@ -15,8 +15,6 @@
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
-#include "croutine.h"
-#include "fardo.h"
 #include "tempo.h"
 #include "lcd_ext.h"
 #include "util.h"
@@ -26,6 +24,7 @@
 #include "tcp_com.h"
 #include "sconsole.h"
 #include "dump_heap_info.h"
+#include "versao.h"
 
 #define verifica_argumentos(argc, q)   if(argc != q){msg_erro_arg(); return;}
 
@@ -40,6 +39,7 @@ static void s_ip(int argc, char **argv);
 static void s_redes(int argc, char **argv);
 static void s_prio(int argc, char **argv);
 static void s_ua(int argc, char **argv);
+static void s_tempo(int argc, char **argv);
 static void s_lmsg(int argc, char **argv);
 static void s_letreiro(int argc, char **argv);
 int bash_read_null(char *s, int max);
@@ -113,6 +113,7 @@ static const BASH_CMD bash_cmd[] = {
     {"redes", s_redes},
     {"prio", s_prio},
     {"ua", s_ua},
+    {"tempo", s_tempo},
     {"mal", b_mal},
     {"lmsg", s_lmsg},
     {"let", s_letreiro},
@@ -285,6 +286,10 @@ static void s_ua(int argc, char **argv) {
     ua_msg_vector((char *) "bbbbbbbbbbbbbbbbf", (char *) "teste de escritaf", 17);
     ua_msg_vector((char *) "ccccccccccccccccf", (char *) "no lcd 16x4     f", 17);
     ua_msg_vector((char *) "ddddddddddddddddf", (char *) "sconsole.c      f", 17);
+}
+
+static void s_tempo(int argc, char **argv){
+    tempo_hum();
 }
 
 static void s_lmsg(int argc, char **argv) {

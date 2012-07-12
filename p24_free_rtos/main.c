@@ -4,7 +4,6 @@
 #include "HardwareProfile.h"
 #include "FreeRTOS.h"
 #include "task.h"
-#include "croutine.h"
 #include "board.h"
 #include "wifi_init.h"
 #include "TCPIP Stack/TCPIP.h"
@@ -29,11 +28,10 @@ int main(void) {
     }
 }
 
-void vApplicationIdleHook(void) {
-    /* Schedule the co-routines from within the idle task hook. */
-    vCoRoutineSchedule();
-    //LED0_IO = ~LED0_IO;
-}
+//void vApplicationIdleHook(void) {
+//    /* Schedule the co-routines from within the idle task hook. */
+//    //vCoRoutineSchedule();
+//}
 
 void vApplicationStackOverflowHook(void) {
     apaga_todos_leds();
@@ -43,5 +41,12 @@ void vApplicationStackOverflowHook(void) {
         /* overflow */
         DelayMs(100);
         LED2_IO = ~LED2_IO;
+    }
+}
+
+void vApplicationMallocFailedHook(void){
+    while(1){
+        DelayMs(100);
+        LED3_IO = ~LED3_IO;
     }
 }

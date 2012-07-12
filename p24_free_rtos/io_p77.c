@@ -14,8 +14,6 @@
 
 IO_P77 io_p77;
 
-/*----------------------------------------------------------------------------*/
-
 void io_p77_init(void){
     io_p77.bloco1 = 0;
     io_p77.bloco2 = 0;
@@ -74,8 +72,6 @@ unsigned char io_p77_loop(void){
     
 }
 
-/*----------------------------------------------------------------------------*/
-
 void io_p77_liga_rele(unsigned int rele){
     if(rele < 8){
         io_p77.bloco1 |= 1 << rele;
@@ -83,8 +79,6 @@ void io_p77_liga_rele(unsigned int rele){
         io_p77.bloco2 |= 1 << (rele-128);
     }
 }
-
-/*----------------------------------------------------------------------------*/
 
 void io_p77_desliga_rele(unsigned int rele){
     if(rele < 8){

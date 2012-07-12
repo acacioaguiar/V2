@@ -2,13 +2,8 @@
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
-#include "croutine.h"
-
 #include "comandos.h"
 #include "ua_com.h"
-
-//#include "fardo.h"
-
 #include "debug_conf.h"
 
 #if _DEBUG_UA

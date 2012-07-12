@@ -152,6 +152,7 @@
         <itemPath>tcp_com.h</itemPath>
         <itemPath>v2_main.h</itemPath>
         <itemPath>dump_heap_info.h</itemPath>
+        <itemPath>versao.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="SourceFiles"

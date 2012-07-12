@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "FreeRTOS.h"
 #include "task.h"
-#include "croutine.h"
 #include "board.h"
 #include "wifi_init.h"
 #include "TCPIP Stack/TCPIP.h"
@@ -12,6 +11,8 @@
 #include "usb_tty.h"
 #include "lcd_ext.h"
 #include "v2_main.h"
+#include "io_p77.h"
+#include "p1503_com.h"
 
 xTaskHandle v2_handle;
 
@@ -40,6 +41,9 @@ static void v2_cria_tarefa(void) {
 static void v2_loop(void *pvParameters) {
     while (1) {
         vTaskDelay(10 / portTICK_RATE_MS);
+
         lcd_letreiro(1);
+        io_p77_loop();
+        p1503_loop();
     }
 }

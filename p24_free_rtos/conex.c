@@ -30,8 +30,6 @@ void con_conexao_perdida(void){ controle_wifi = CONEXAO_PERDIDA; }
 
 
 void con_monitora_conexao(void){
-    unsigned long timeout;
-
     if(controle_wifi > INDEFINIDO)
         printf("\r\nevento: ");
 
