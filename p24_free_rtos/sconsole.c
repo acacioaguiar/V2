@@ -511,4 +511,5 @@ static void b_deleta_pasta(int argc, char **argv) {
 static void b_mal(int argc, char **argv){
     _dump_heap_info();
 }
+
 #endif //#if defined(WF_CONSOLE)
