@@ -18,8 +18,7 @@ APP_CONFIG AppConfig;
 
 int main(void) {
     v2_main_init();         /* inicia o loop principal do projeto v2 */
-    LED0_IO = 0;
-    vTaskStartScheduler(); /* faz o freertos gerenciar as tarefas */
+    vTaskStartScheduler();  /* faz o freertos gerenciar as tarefas */
 
     apaga_todos_leds();
 

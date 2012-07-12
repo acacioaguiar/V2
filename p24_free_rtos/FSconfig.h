@@ -44,7 +44,7 @@
 //              This macro defines the maximum number of open files at any given time.  The amount of RAM used by FSFILE objects will
 //              be equal to the size of an FSFILE object multipled by this macro value.  This value should be kept as small as possible
 //              as dictated by the application.  This will reduce memory usage.
-#define FS_MAX_FILES_OPEN 	6
+#define FS_MAX_FILES_OPEN 	4
 
 
 // Summary: A macro defining the size of a sector
@@ -95,7 +95,7 @@
 // Summary: A macro to enable/disable the FSGetDiskProperties function.
 // Description: The ALLOW_GET_DISK_PROPERTIES definition can be commented out to disable the FSGetDiskProperties function in the library.
 //              This will save code space.
-//#define ALLOW_GET_DISK_PROPERTIES
+#define ALLOW_GET_DISK_PROPERTIES
 
 // Summary: A macro to enable/disable FAT32 support.
 // Description: The SUPPORT_FAT32 definition can be commented out to disable support for FAT32 functionality.  This will save a small amount

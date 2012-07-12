@@ -18,8 +18,11 @@ xTaskHandle v2_handle;
 static void v2_loop(void *pvParameters);
 static void v2_cria_tarefa(void);
 
-void v2_main_init(void){
+void v2_main_init(void) {
     board_init();           /* inicia o clock, configura as portas...*/
+
+    LED0_1();
+
     TickInit();             /* temporizador */
     board_mem_ini();        /* inicializa o cartao de memoria e o sistema de arquivos fat */
     con_atualiza_redes();   /* verifica o arquivo de inicializacao *ini */
@@ -27,16 +30,16 @@ void v2_main_init(void){
     usb_init();             /* inicia a tarefa da comunicacao usb */
     ua_com_init();          /* inicia a tarefa da comunicacao serial com o pic16f77 */
     tcp_init();             /* inicia a tarefa da pilha tcpip */
-    //v2_cria_tarefa();       /* cria a tarefa do loop principal do v2 */
+    v2_cria_tarefa();       /* cria a tarefa do loop principal do v2 */
 }
 
-static void v2_cria_tarefa(void){
-    xTaskCreate(v2_loop, (signed char *)"V2", V2_STACK, NULL, V2_PRIORIDADE, &v2_handle);
+static void v2_cria_tarefa(void) {
+    xTaskCreate(v2_loop, (signed char *) "V2", V2_STACK, NULL, V2_PRIORIDADE, &v2_handle);
 }
 
-static void v2_loop(void *pvParameters){
-    while(1){
-        vTaskDelay(10/portTICK_RATE_MS);
+static void v2_loop(void *pvParameters) {
+    while (1) {
+        vTaskDelay(10 / portTICK_RATE_MS);
         lcd_letreiro(1);
     }
 }
