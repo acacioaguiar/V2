@@ -34,4 +34,8 @@ int util_memoria_mdd_presente(void);
 #define LED4_1()  {LED0_IO = 1; LED1_IO = 1; LED2_IO = 1; LED3_IO = 1; LED4_IO = 0;}
 #define LED4_0()  {LED0_IO = 1; LED1_IO = 1; LED2_IO = 1; LED3_IO = 1; LED4_IO = 1;}
 
+#define led0_muda_estado()  {LED0_IO = ~LED0_IO;}
+#define led1_muda_estado()  {LED1_IO = ~LED1_IO;}
+#define led2_muda_estado()  {LED2_IO = ~LED2_IO;}
+
 #endif	/* BOARD_H */

@@ -70,7 +70,7 @@ static int ended;
 static int expr(void);
 static void line_statement(void);
 static void statement(void);
-/*---------------------------------------------------------------------------*/
+
 void
 ubasic_init(const char *program)
 {
@@ -79,7 +79,7 @@ ubasic_init(const char *program)
   tokenizer_init(program);
   ended = 0;
 }
-/*---------------------------------------------------------------------------*/
+
 static void
 accept(int token)
 {
@@ -92,7 +92,7 @@ accept(int token)
   DEBUG_PRINTF("Expected %d, got it\n", token);
   tokenizer_next();
 }
-/*---------------------------------------------------------------------------*/
+
 static int
 varfactor(void)
 {
@@ -102,7 +102,7 @@ varfactor(void)
   accept(TOKENIZER_VARIABLE);
   return r;
 }
-/*---------------------------------------------------------------------------*/
+
 static int
 factor(void)
 {
@@ -126,7 +126,7 @@ factor(void)
   }
   return r;
 }
-/*---------------------------------------------------------------------------*/
+
 static int
 term(void)
 {
@@ -158,7 +158,7 @@ term(void)
   DEBUG_PRINTF("term: %d\n", f1);
   return f1;
 }
-/*---------------------------------------------------------------------------*/
+
 static int
 expr(void)
 {
@@ -194,7 +194,7 @@ expr(void)
   DEBUG_PRINTF("expr: %d\n", t1);
   return t1;
 }
-/*---------------------------------------------------------------------------*/
+
 static int
 relation(void)
 {
@@ -225,7 +225,7 @@ relation(void)
   }
   return r1;
 }
-/*---------------------------------------------------------------------------*/
+
 static void
 jump_linenum(int linenum)
 {
@@ -243,14 +243,14 @@ jump_linenum(int linenum)
     DEBUG_PRINTF("jump_linenum: Found line %d\n", tokenizer_num());
   }
 }
-/*---------------------------------------------------------------------------*/
+
 static void
 goto_statement(void)
 {
   accept(TOKENIZER_GOTO);
   jump_linenum(tokenizer_num());
 }
-/*---------------------------------------------------------------------------*/
+
 static void
 print_statement(void)
 {
@@ -278,7 +278,7 @@ print_statement(void)
   DEBUG_PRINTF("End of print\n");
   tokenizer_next();
 }
-/*---------------------------------------------------------------------------*/
+
 static void
 if_statement(void)
 {
@@ -305,7 +305,7 @@ if_statement(void)
     }
   }
 }
-/*---------------------------------------------------------------------------*/
+
 static void
 let_statement(void)
 {
@@ -320,7 +320,7 @@ let_statement(void)
   accept(TOKENIZER_CR);
 
 }
-/*---------------------------------------------------------------------------*/
+
 static void
 gosub_statement(void)
 {
@@ -337,7 +337,7 @@ gosub_statement(void)
     DEBUG_PRINTF("gosub_statement: gosub stack exhausted\n");
   }
 }
-/*---------------------------------------------------------------------------*/
+
 static void
 return_statement(void)
 {
@@ -349,7 +349,7 @@ return_statement(void)
     DEBUG_PRINTF("return_statement: non-matching return\n");
   }
 }
-/*---------------------------------------------------------------------------*/
+
 static void
 next_statement(void)
 {
@@ -374,7 +374,7 @@ next_statement(void)
   }
 
 }
-/*---------------------------------------------------------------------------*/
+
 static void
 for_statement(void)
 {
@@ -402,14 +402,14 @@ for_statement(void)
     DEBUG_PRINTF("for_statement: for stack depth exceeded\n");
   }
 }
-/*---------------------------------------------------------------------------*/
+
 static void
 end_statement(void)
 {
   accept(TOKENIZER_END);
   ended = 1;
 }
-/*---------------------------------------------------------------------------*/
+
 static void
 statement(void)
 {
@@ -453,7 +453,7 @@ statement(void)
     exit(1);
   }
 }
-/*---------------------------------------------------------------------------*/
+
 static void
 line_statement(void)
 {
@@ -463,7 +463,7 @@ line_statement(void)
   statement();
   return;
 }
-/*---------------------------------------------------------------------------*/
+
 void
 ubasic_run(void)
 {
@@ -474,13 +474,13 @@ ubasic_run(void)
 
   line_statement();
 }
-/*---------------------------------------------------------------------------*/
+
 int
 ubasic_finished(void)
 {
   return ended || tokenizer_finished();
 }
-/*---------------------------------------------------------------------------*/
+
 void
 ubasic_set_variable(int varnum, int value)
 {
@@ -488,7 +488,7 @@ ubasic_set_variable(int varnum, int value)
     variables[varnum] = value;
   }
 }
-/*---------------------------------------------------------------------------*/
+
 int
 ubasic_get_variable(int varnum)
 {
@@ -497,4 +497,4 @@ ubasic_get_variable(int varnum)
   }
   return 0;
 }
-/*---------------------------------------------------------------------------*/
+

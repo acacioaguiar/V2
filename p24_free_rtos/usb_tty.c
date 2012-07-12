@@ -240,12 +240,10 @@ unsigned int usb_loop(void){
     USB_BUFFER usb_task;
 
     /* regiao critica ? */
-    //portENTER_CRITICAL();
-    taskENTER_CRITICAL();
+    portENTER_CRITICAL();
 
     if ((USBDeviceState < CONFIGURED_STATE) || (USBSuspendControl == 1)){
-        //portEXIT_CRITICAL();
-        taskEXIT_CRITICAL();
+        portEXIT_CRITICAL();
         return 0;
     }
 
@@ -262,10 +260,7 @@ unsigned int usb_loop(void){
     }
 
     CDCTxService();
-
-    //portEXIT_CRITICAL();
-    taskEXIT_CRITICAL();
-
+    portEXIT_CRITICAL();
     return 1;
 }
 

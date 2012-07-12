@@ -383,14 +383,7 @@ static void b_edit_file(int argc, char **argv) {
     } else {
         usb_print("\r\narquivo criado");
     }
-
-    //    usb_print("\r\ndigite: ");
-    //    bash_read_null(buf, sizeof(buf)/sizeof(char));
-    //    usb_print("\r\nrecebi: ");
-    //    for(retorno = 0; retorno < sizeof(buf)/sizeof(char); retorno++){
-    //        usb_tx_1byte(buf[retorno]);
-    //    }
-
+    
     while (1) {
         retorno = bash_read_null(buf, sizeof (buf) / sizeof (char));
 

@@ -24,7 +24,7 @@ int main(void) {
     while (1) {
         /* nao foi possivel alocar memoria */
         DelayMs(100);
-        LED1_IO = ~LED1_IO;
+        led0_muda_estado();
     }
 }
 
@@ -40,13 +40,14 @@ void vApplicationStackOverflowHook(void) {
     while (1) {
         /* overflow */
         DelayMs(100);
-        LED2_IO = ~LED2_IO;
+        led1_muda_estado();
     }
 }
 
 void vApplicationMallocFailedHook(void){
+    /* o malloc falhou */
     while(1){
         DelayMs(100);
-        LED3_IO = ~LED3_IO;
+        led2_muda_estado();
     }
 }

@@ -27,14 +27,10 @@ xTaskHandle ua_tarefa;
 /* uso de memoria */
 unsigned portBASE_TYPE stack_uso_ua_com;
 
-/* monitora e limpa os erros */
-static void erros(void);
-/* sincronismo do p77 com o p24 */
-static void sincroniza(void);
-/* envia um byte */
-static void u2tx(char a);
-/* aguarda e recebe um byte */
-static char u2rx(void);
+static void erros(void);        /* monitora e limpa os erros */
+static void sincroniza(void);   /* sincronismo do p77 com o p24 */
+static void u2tx(char a);       /* envia um byte */
+static char u2rx(void);         /* aguarda e recebe um byte */
 
 static void sincroniza(void){
     erros();
@@ -103,9 +99,6 @@ void ua_loop(void *pvParameters){
         if(uart_queue != 0){
             if(xQueueReceive(uart_queue, &buf, (portTickType)10)){
 
-                //taskENTER_CRITICAL();
-                //portENTER_CRITICAL();
-
                 for(i = 0; i < buf.qua; i++){
 
                     u2tx(buf.cmd[i]);
@@ -120,11 +113,9 @@ void ua_loop(void *pvParameters){
 
                     ua_retorno = c;
                 }
-
-                //portEXIT_CRITICAL();
-                //taskEXIT_CRITICAL();
-            }
-        }
+                
+            } // if queue
+        } // if uart
 
         /* salva o ponto mais alto de consumo do stack */
         stack_uso_ua_com = uxTaskGetStackHighWaterMark(NULL);

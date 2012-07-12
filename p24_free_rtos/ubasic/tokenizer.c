@@ -71,7 +71,6 @@ static const struct keyword_token keywords[] = {
   {NULL, TOKENIZER_ERROR}
 };
 
-/*---------------------------------------------------------------------------*/
 static int
 singlechar(void)
 {
@@ -108,7 +107,7 @@ singlechar(void)
   }
   return 0;
 }
-/*---------------------------------------------------------------------------*/
+
 static int
 get_next_token(void)
 {
@@ -166,20 +165,20 @@ get_next_token(void)
   
   return TOKENIZER_ERROR;
 }
-/*---------------------------------------------------------------------------*/
+
 void
 tokenizer_init(const char *program)
 {
   ptr = program;
   current_token = get_next_token();
 }
-/*---------------------------------------------------------------------------*/
+
 int
 tokenizer_token(void)
 {
   return current_token;
 }
-/*---------------------------------------------------------------------------*/
+
 void
 tokenizer_next(void)
 {
@@ -197,13 +196,13 @@ tokenizer_next(void)
   DEBUG_PRINTF("tokenizer_next: '%s' %d\n", ptr, current_token);
   return;
 }
-/*---------------------------------------------------------------------------*/
+
 int
 tokenizer_num(void)
 {
   return atoi(ptr);
 }
-/*---------------------------------------------------------------------------*/
+
 void
 tokenizer_string(char *dest, int len)
 {
@@ -224,22 +223,22 @@ tokenizer_string(char *dest, int len)
   memcpy(dest, ptr + 1, string_len);
   dest[string_len] = 0;
 }
-/*---------------------------------------------------------------------------*/
+
 void
 tokenizer_error_print(void)
 {
   DEBUG_PRINTF("tokenizer_error_print: '%s'\n", ptr);
 }
-/*---------------------------------------------------------------------------*/
+
 int
 tokenizer_finished(void)
 {
   return *ptr == 0 || current_token == TOKENIZER_ENDOFINPUT;
 }
-/*---------------------------------------------------------------------------*/
+
 int
 tokenizer_variable_num(void)
 {
   return *ptr - 'a';
 }
-/*---------------------------------------------------------------------------*/
+

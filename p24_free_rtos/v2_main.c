@@ -16,8 +16,13 @@
 
 xTaskHandle v2_handle;
 
+#define tick() TickGet()
+#define TICK_SEGUNDOS TICK_SECOND
+#define timeout(tick, referencia, s) ((tick - referencia) >= (TICK_SEGUNDOS * s))
+
 static void v2_loop(void *pvParameters);
 static void v2_cria_tarefa(void);
+static void mensagens_letreiro(unsigned long tempo);
 
 void v2_main_init(void) {
     board_init();           /* inicia o clock, configura as portas...*/
@@ -39,11 +44,19 @@ static void v2_cria_tarefa(void) {
 }
 
 static void v2_loop(void *pvParameters) {
-    while (1) {
-        vTaskDelay(10 / portTICK_RATE_MS);
+    unsigned long tempo = 0;
 
-        lcd_letreiro(1);
-        io_p77_loop();
-        p1503_loop();
+    while (1) {
+        tempo = tick();
+        mensagens_letreiro(tempo);
+    }
+}
+
+static void mensagens_letreiro(unsigned long tempo) {
+    static unsigned long base_tempo = 0;
+    static int a = 0;
+
+    if(timeout(tempo, base_tempo, 3)){
+        lcd_letreiro((a++%4)+1);
     }
 }
