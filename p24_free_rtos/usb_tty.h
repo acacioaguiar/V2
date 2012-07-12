@@ -20,7 +20,7 @@ unsigned int usb_estado_rx(void);
 char usb_buffer_rx(void);
 
 #define USB_STACK       (configMINIMAL_STACK_SIZE * 2)
-#define USB_PRIORIDADE  (tskIDLE_PRIORITY + 1)
+#define USB_PRIORIDADE  (tskIDLE_PRIORITY + 0)
 
 #define USB_QUANTIDADE_QUEUE    8
 #define USB_BUFFER_SIZE         32

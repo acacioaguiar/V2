@@ -11,19 +11,14 @@
 #include "tcp_com.h"
 
 static void tcp_pilha(void *pvParameters);
-static void tcp_console(void *pvParameters);
 
 xTaskHandle tcpip_handle;
-xTaskHandle console_handle;
 unsigned portBASE_TYPE tcpip_stack;
-unsigned portBASE_TYPE console_stack;
-
 xSemaphoreHandle tcpip_httpserver;
 
 void tcp_init(void) {
     vSemaphoreCreateBinary(tcpip_httpserver);
     xTaskCreate(tcp_pilha, (signed char *) "TCPIP", TCP_STACK, NULL, TCP_PRIORIDADE, &tcpip_handle);
-    xTaskCreate(tcp_console, (signed char *)"CONSOLE", TCP_CONSOLE_STACK, NULL, TCP_CONSOLE_PRIORIDADE, &console_handle);
 }
 
 int tcpip_desabilita_httpserver(void){
@@ -50,10 +45,11 @@ static void tcp_pilha(void *pvParameters) {
     tcpip_stack = uxTaskGetStackHighWaterMark(NULL);
     
     StackInit();
+    WFConsoleInit();
     wifi_conexao_padrao();
     
     while (1) {
-        vTaskDelay(50 / portTICK_RATE_MS);
+        //vTaskDelay(50 / portTICK_RATE_MS);
 
         StackTask();
 
@@ -65,6 +61,9 @@ static void tcp_pilha(void *pvParameters) {
                 xSemaphoreGive(tcpip_httpserver);
             }
         }
+
+        WFConsoleProcess();
+        WFConsoleProcessEpilogue();
         
         con_monitora_conexao();
 
@@ -74,19 +73,5 @@ static void tcp_pilha(void *pvParameters) {
 #endif
 
         tcpip_stack = uxTaskGetStackHighWaterMark(NULL);
-    }
-}
-
-static void tcp_console(void *pvParameters) {
-    (void)pvParameters;
-
-    console_stack = uxTaskGetStackHighWaterMark(NULL);
-
-    WFConsoleInit();
-    while(1){
-        WFConsoleProcess();
-        WFConsoleProcessEpilogue();
-
-        console_stack = uxTaskGetStackHighWaterMark(NULL);
     }
 }

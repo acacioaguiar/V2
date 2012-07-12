@@ -79,17 +79,20 @@ def busca_modulo():
             com.close()
             continue
         
-        com.read(100)
+        #com.read(100)
 
-        com.write(ENTER)
-        com.read(100)
+        #com.write(ENTER)
+        #com.read(100)
         
-        com.write(ENTER)
-        com.read(100)
+        #com.write(ENTER)
+        #com.read(100)
+        
+        sleep(3)
+        
+        rec = read_serial(com)
 
         # envia o comando <ver> para o modulo
         com.write(VERSAO+ENTER)
-
         rec = com.read(100)
         com.close()
 

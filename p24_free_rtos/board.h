@@ -10,6 +10,7 @@
 
 void board_init(void);
 void board_mem_ini(void);
+int util_memoria_mdd_presente(void);
 
 #define apaga_todos_leds() {LED0_IO = 1; LED1_IO = 1; LED2_IO = 1; LED3_IO = 1; LED4_IO = 1;}
 

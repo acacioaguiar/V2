@@ -17,18 +17,8 @@
 APP_CONFIG AppConfig;
 
 int main(void) {
-    board_init();           /* inicia o clock, configura as portas...*/
-    TickInit();             /* temporizador */
-    board_mem_ini();        /* inicializa o cartao de memoria e o sistema de arquivos fat */
-    con_atualiza_redes();   /* verifica o arquivo de inicializacao *ini */
-    wifi_init_appconfig();  /* carrega o AppConfig com os valores padroes */
-    usb_init();             /* inicia a tarefa da comunicacao usb */
-    ua_com_init();          /* inicia a tarefa da comunicacao serial com o pic16f77 */
-    tcp_init();             /* inicia a tarefa da pilha tcpip */
     v2_main_init();         /* inicia o loop principal do projeto v2 */
-
     LED0_IO = 0;
-
     vTaskStartScheduler(); /* faz o freertos gerenciar as tarefas */
 
     apaga_todos_leds();

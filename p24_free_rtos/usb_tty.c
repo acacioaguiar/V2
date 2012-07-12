@@ -69,11 +69,6 @@ void usb_tty_task(void *pvParameters){
     stack_uso_usb = uxTaskGetStackHighWaterMark( NULL );
 
     while(1){
-
-        vTaskDelay(1/portTICK_RATE_MS);
-
-        taskENTER_CRITICAL();
-
         /* verifica o barramento */
         barramento_usb();
         /* cria com seguranca a queue */
@@ -81,9 +76,6 @@ void usb_tty_task(void *pvParameters){
         usb_leds_status();
         /* loop principal, comunicacao(transmissao e recepcao) */
         usb_loop();
-
-        taskEXIT_CRITICAL();
-
         /* marca maximo de consumo */
         stack_uso_usb = uxTaskGetStackHighWaterMark( NULL );
     }
@@ -249,11 +241,11 @@ unsigned int usb_loop(void){
 
     /* regiao critica ? */
     //portENTER_CRITICAL();
-    //taskENTER_CRITICAL();
+    taskENTER_CRITICAL();
 
     if ((USBDeviceState < CONFIGURED_STATE) || (USBSuspendControl == 1)){
         //portEXIT_CRITICAL();
-        //taskEXIT_CRITICAL();
+        taskEXIT_CRITICAL();
         return 0;
     }
 
@@ -272,7 +264,7 @@ unsigned int usb_loop(void){
     CDCTxService();
 
     //portEXIT_CRITICAL();
-    //taskEXIT_CRITICAL();
+    taskEXIT_CRITICAL();
 
     return 1;
 }

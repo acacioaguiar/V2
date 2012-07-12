@@ -2,10 +2,6 @@
 #include <string.h>
 
 #include "TCPIP Stack/TCPIP.h"
-#include "MDD File System/FSIO.h"
-
-extern APP_CONFIG AppConfig;
-extern volatile BOOL FileSysInitLock;
 
 void util_string_ip(IP_ADDR ip, char *s){
     int i;
@@ -21,10 +17,4 @@ void util_string_ip(IP_ADDR ip, char *s){
     }
 }
 
-int util_memoria_mdd_presente(void){
-    if(FileSysInitLock == 0){
-        return 0;
-    } else {
-        return 1;
-    }
-}
+

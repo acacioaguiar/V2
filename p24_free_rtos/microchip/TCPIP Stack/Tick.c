@@ -94,7 +94,6 @@ static void GetTickCopy(void);
   ***************************************************************************/
 void TickInit(void)
 {
-    portENTER_CRITICAL();
 #if defined(__18CXX)
 	// Use Timer0 for 8 bit processors
     // Initialize the time
@@ -132,8 +131,6 @@ void TickInit(void)
 	// Start timer
 	T1CONbits.TON = 1;
 #endif
-
-    portEXIT_CRITICAL();
 }
 
 /*****************************************************************************

@@ -91,3 +91,11 @@ void board_mem_ini(void) {
     else
         LED3_IO = 1;
 }
+
+int util_memoria_mdd_presente(void){
+    if(FileSysInitLock == 0){
+        return 0;
+    } else {
+        return 1;
+    }
+}

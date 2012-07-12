@@ -25,6 +25,7 @@
 #include "ua_com.h"
 #include "tcp_com.h"
 #include "sconsole.h"
+#include "dump_heap_info.h"
 
 #define verifica_argumentos(argc, q)   if(argc != q){msg_erro_arg(); return;}
 
@@ -51,15 +52,16 @@ static void b_remove_arq(int argc, char **argv);
 static void b_muda_diretorio(int argc, char **argv);
 static void b_cria_pasta(int argc, char **argv);
 static void b_deleta_pasta(int argc, char **argv);
+static void b_mal(int argc, char **argv);
 
 extern unsigned portBASE_TYPE stack_uso_usb;
 extern unsigned portBASE_TYPE stack_uso_ua_com;
 
 extern xTaskHandle tcpip_handle;
-extern xTaskHandle console_handle;
+//extern xTaskHandle console_handle;
 
 extern unsigned portBASE_TYPE tcpip_stack;
-extern unsigned portBASE_TYPE console_stack;
+//extern unsigned portBASE_TYPE console_stack;
 
 extern APP_CONFIG AppConfig;
 extern struct conex_lista_rede lista_rede;
@@ -111,6 +113,7 @@ static const BASH_CMD bash_cmd[] = {
     {"redes", s_redes},
     {"prio", s_prio},
     {"ua", s_ua},
+    {"mal", b_mal},
     {"lmsg", s_lmsg},
     {"let", s_letreiro},
     {"edit", b_edit_file},
@@ -134,12 +137,6 @@ static void b_versao(int argc, char **argv) {
     (void) argv;
     usb_print("\r\n");
     usb_print(VERSAO_V2);
-
-    if(tcpip_desabilita_httpserver()){
-        usb_print("\r\nhttpserver desabilitado");
-    } else {
-        usb_print("\r\nerro: httpserver nao foi desabilitado");
-    }
 }
 
 void executa_cmd(int argc, char **argv) {
@@ -208,11 +205,12 @@ static void s_stack(int argc, char **argv) {
     usb_print("\r\nuso do stack");
     usb_print((char *) msg_linha);
     usb_print((char *) "\r\ntask  | livre | alocado |");
-    printf("\r\ntcpip | %03u   |  %03u    |", tcpip_stack, 0);
-    printf("\r\nconso | %03u   |  %03u    |", console_stack, 0);
-    printf("\r\nusb   | %03u   |  %03u    |", stack_uso_usb, 0);
-    printf("\r\nuacom | %03u   |  %03u    |", stack_uso_ua_com, 0);
+    printf("\r\ntcpip | %03u   |  %03u    |", tcpip_stack, TCP_STACK);
+    //printf("\r\nconso | %03u   |  %03u    |", console_stack, TCP_CONSOLE_STACK);
+    printf("\r\nusb   | %03u   |  %03u    |", stack_uso_usb, USB_STACK);
+    printf("\r\nuacom | %03u   |  %03u    |", stack_uso_ua_com, SIZE_STACK_UA_COM);
 
+    printf("\r\ntotal alocado: %u", TCP_STACK  + USB_STACK + SIZE_STACK_UA_COM);
 }
 
 static void s_ip(int argc, char **argv) {
@@ -248,24 +246,24 @@ static void s_prio(int argc, char **argv) {
 
     if (argc == 3) {
         usb_print("\r\nmudando ");
-        if (strcmppgm2ram(argv[2], "tcpip") == 0) {
+        if (strcmppgm2ram(argv[1], "tcpip") == 0) {
 
             usb_print("tcpip");
-            vTaskPrioritySet(tcpip_handle, atoi(argv[3]));
+            vTaskPrioritySet(tcpip_handle, atoi(argv[2]));
 
-        } else if (strcmppgm2ram(argv[2], "usb") == 0) {
+        } else if (strcmppgm2ram(argv[1], "usb") == 0) {
 
             usb_print("usb");
-            vTaskPrioritySet(usb_controle, atoi(argv[3]));
+            vTaskPrioritySet(usb_controle, atoi(argv[2]));
 
-        } else if (strcmppgm2ram(argv[2], "uacom") == 0) {
+        } else if (strcmppgm2ram(argv[1], "uacom") == 0) {
             usb_print("uart");
-            vTaskPrioritySet(ua_tarefa, atoi(argv[3]));
+            vTaskPrioritySet(ua_tarefa, atoi(argv[2]));
 
-        } else if (strcmppgm2ram(argv[2], "conso") == 0) {
+        } else if (strcmppgm2ram(argv[1], "conso") == 0) {
 
             usb_print("console");
-            vTaskPrioritySet(console_handle, atoi(argv[3]));
+            //vTaskPrioritySet(console_handle, atoi(argv[2]));
 
         }
     }
@@ -274,7 +272,7 @@ static void s_prio(int argc, char **argv) {
     printf("\r\nprioridades:");
     printf("\r\nusb  : %u", uxTaskPriorityGet(usb_controle));
     printf("\r\ntcpip: %u", uxTaskPriorityGet(tcpip_handle));
-    printf("\r\nconso: %u", uxTaskPriorityGet(console_handle));
+    //printf("\r\nconso: %u", uxTaskPriorityGet(console_handle));
     printf("\r\nuacom: %u", uxTaskPriorityGet(ua_tarefa));
 }
 
@@ -510,4 +508,7 @@ static void b_deleta_pasta(int argc, char **argv) {
     }
 }
 
+static void b_mal(int argc, char **argv){
+    _dump_heap_info();
+}
 #endif //#if defined(WF_CONSOLE)

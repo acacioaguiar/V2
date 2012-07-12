@@ -11,7 +11,6 @@
 #include "TCPIP Stack/TCPIP.h"
 
 void util_string_ip(IP_ADDR ip, char *s);
-int util_memoria_mdd_presente(void);
 
 #endif	/* UTIL_H */
 

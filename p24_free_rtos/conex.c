@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <string.h>
-
 #include "rc.h"
 #include "conex.h"
 #include "util.h"
-
 #include "TCPIP Stack/TCPIP.h"
 #include "lcd_ext.h"
+#include "board.h"
 
 #define INDEFINIDO      0
 #define CONECTANDO      1
