@@ -353,7 +353,7 @@
         <property key="extra-include-directories"
                   value=".;.\free_rtos;.\free_rtos\include;.\free_rtos\portable\MemMang;.\free_rtos\portable\MPLAB\PIC24_dsPIC;.\microchip;.\microchip\Common;.\microchip\Include;.\microchip\Include\USB;.\microchip\USB;.\microchip\TCPIP Stack;.\microchip\TCPIP Stack\WiFi;.\microchip\MDD File System;.\microchip\Include\TCPIP Stack;.\microchip\Include\MDD File System;.\mini_ini"/>
         <property key="isolate-each-function" value="false"/>
-        <property key="optimization-level" value="1"/>
+        <property key="optimization-level" value="0"/>
         <property key="post-instruction-scheduling" value="no-schedule-insns2"/>
         <property key="pre-instruction-scheduling" value="no-schedule-insns"/>
         <property key="preprocessor-macros" value=""/>
@@ -363,7 +363,7 @@
       <C30-AS>
         <property key="assembler-symbols" value=""/>
         <property key="expand-macros" value="false"/>
-        <property key="extra-include-directories-for-assembler" value="."/>
+        <property key="extra-include-directories-for-assembler" value=""/>
         <property key="extra-include-directories-for-preprocessor" value=""/>
         <property key="false-conditionals" value="false"/>
         <property key="keep-locals" value="false"/>
@@ -389,11 +389,11 @@
         <property key="enable-default-isr" value="true"/>
         <property key="enable-handles" value="true"/>
         <property key="enable-pack-data" value="true"/>
-        <property key="extra-lib-directories" value="."/>
+        <property key="extra-lib-directories" value=""/>
         <property key="general-code-protect" value="no_code_protect"/>
         <property key="general-write-protect" value="no_write_protect"/>
         <property key="generate-cross-reference-file" value="false"/>
-        <property key="heap-size" value="6800"/>
+        <property key="heap-size" value="8192"/>
         <property key="input-libraries" value=""/>
         <property key="linker-symbols" value=""/>
         <property key="map-file" value=""/>

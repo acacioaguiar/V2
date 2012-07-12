@@ -27,7 +27,7 @@ void v2_main_init(void){
     usb_init();             /* inicia a tarefa da comunicacao usb */
     ua_com_init();          /* inicia a tarefa da comunicacao serial com o pic16f77 */
     tcp_init();             /* inicia a tarefa da pilha tcpip */
-    v2_cria_tarefa();       /* cria a tarefa do loop principal do v2 */
+    //v2_cria_tarefa();       /* cria a tarefa do loop principal do v2 */
 }
 
 static void v2_cria_tarefa(void){

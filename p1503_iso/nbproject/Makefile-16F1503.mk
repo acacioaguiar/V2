@@ -62,7 +62,7 @@ LDLIBSOPTIONS=
 FIXDEPS=fixDeps
 
 .build-conf:  ${BUILD_SUBPROJECTS}
-	${MAKE}  -f nbproject/Makefile-16F1503.mk dist/${CND_CONF}/${IMAGE_TYPE}/p1503_iso.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+	${MAKE} ${MAKE_OPTIONS} -f nbproject/Makefile-16F1503.mk dist/${CND_CONF}/${IMAGE_TYPE}/p1503_iso.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=16F1503
 # ------------------------------------------------------------------------------------
