@@ -39,17 +39,26 @@ int tcpip_habilita_httpserver(void){
     }
 }
 
+void tcpip_inicia_console(void){
+    WFConsoleInit();
+}
+
+void tcpip_console_loop(void){
+    WFConsoleProcess();
+    WFConsoleProcessEpilogue();
+}
+
 static void tcp_pilha(void *pvParameters) {
     (void)pvParameters;
 
     tcpip_stack = uxTaskGetStackHighWaterMark(NULL);
     
     StackInit();
-    WFConsoleInit();
+    //WFConsoleInit();
     wifi_conexao_padrao();
     
     while (1) {
-        //vTaskDelay(50 / portTICK_RATE_MS);
+        vTaskDelay(20 / portTICK_RATE_MS);
 
         StackTask();
 
@@ -62,8 +71,8 @@ static void tcp_pilha(void *pvParameters) {
             }
         }
 
-        WFConsoleProcess();
-        WFConsoleProcessEpilogue();
+//        WFConsoleProcess();
+//        WFConsoleProcessEpilogue();
         
         con_monitora_conexao();
 

@@ -14,5 +14,7 @@
 void tcp_init(void);
 int tcpip_desabilita_httpserver(void);
 int tcpip_habilita_httpserver(void);
+void tcpip_inicia_console(void);
+void tcpip_console_loop(void);
 
 #endif	/* TCP_COM_H */

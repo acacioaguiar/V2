@@ -46,9 +46,12 @@ static void v2_cria_tarefa(void) {
 static void v2_loop(void *pvParameters) {
     unsigned long tempo = 0;
 
+    tcpip_inicia_console();
+
     while (1) {
         tempo = tick();
         mensagens_letreiro(tempo);
+        tcpip_console_loop();
     }
 }
 
